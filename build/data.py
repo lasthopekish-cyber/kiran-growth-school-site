@@ -1,0 +1,279 @@
+"""Content data for kirangrowthschool.online. Edit here, then run: python3 build/build.py"""
+
+SITE = {
+    "name": "Kiran Growth School",
+    "url": "https://kirangrowthschool.online",
+    "phone": "+91 93998 51765",
+    "phone_e164": "+919399851765",
+    "wa": "919399851765",
+    "email": "founder@kirangrowthschool.com",
+    "founder": "Sitanshu Tripathi",
+    "linkedin": "https://www.linkedin.com/in/sitanshu-tripathii/",
+    "hours": "Mon to Sat · 10 AM to 7 PM",
+    "tagline": "Performance marketing agency for solar and real estate businesses",
+}
+
+# ---------------------------------------------------------------- services
+SERVICES = [
+    {
+        "slug": "meta-ads", "icon": "meta", "bg": "#efe7ff", "c": "var(--violet)",
+        "name": "Meta Ads", "short": "Facebook & Instagram lead generation",
+        "title": "Meta Ads Agency for Solar & Real Estate Leads | Facebook & Instagram Ads",
+        "desc": "Facebook and Instagram ad campaigns that bring qualified solar and real estate leads in Delhi NCR, Gurugram, Ghaziabad, Bhopal, Rewa and Satna. Lead forms, WhatsApp ads, CAPI tracking.",
+        "h1": "Meta Ads that bring <span class=\"hl hv\">qualified leads</span>, not just clicks",
+        "lead": "We plan, build and run Facebook and Instagram campaigns for solar installers, builders, brokers and channel partners. Every rupee is tracked from ad to WhatsApp chat to site visit.",
+        "chips": ["Lead forms", "Click-to-WhatsApp", "Advantage+", "Pixel + CAPI", "Retargeting"],
+        "points": [
+            ("Offer and audience first", "We start from what makes a buyer act: subsidy savings for solar, price, location and possession date for property. Then we build audiences around it."),
+            ("Lead forms that filter", "Instant forms with qualifying questions (monthly bill, roof type, budget, configuration) so your sales team calls fewer time-wasters."),
+            ("Click-to-WhatsApp campaigns", "Ads that open a WhatsApp chat with you directly, with an instant auto-reply so no lead waits."),
+            ("Creative testing every week", "Static, carousel, reels, UGC and AI avatar videos, tested in small budgets before we scale winners."),
+            ("Pixel and Conversions API", "Server-side tracking so Meta optimises for real leads and site visits, not cheap form fills."),
+            ("Weekly reporting", "Cost per lead, cost per qualified lead and what changed this week, in plain language."),
+        ],
+        "faq": [
+            ("How much budget do I need to start Meta Ads?", "Most local solar and real estate campaigns can start testing with ₹500 to ₹1,500 a day. We decide the final budget after looking at your city, ticket size and sales capacity."),
+            ("Lead form or WhatsApp, which works better?", "Lead forms usually bring more volume; click-to-WhatsApp usually brings warmer conversations. We often run both and keep what gives the lower cost per qualified lead for your business."),
+            ("Do you make the ad creatives?", "Yes. We write the copy and produce statics, carousels, reels and AI avatar videos. You only share your project or installation photos and approvals."),
+        ],
+    },
+    {
+        "slug": "google-ads", "icon": "google", "bg": "#e6ebff", "c": "var(--blue)",
+        "name": "Google Ads", "short": "Search, Performance Max, YouTube",
+        "title": "Google Ads Agency for Solar Installers & Real Estate | Search + PMax",
+        "desc": "Google Search, Performance Max and YouTube campaigns for rooftop solar and real estate. Capture high-intent searches like 'solar panel installation near me' and '3 BHK in Gurugram'.",
+        "h1": "Google Ads for people <span class=\"hl hb\">already searching</span> for you",
+        "lead": "When someone types 'rooftop solar subsidy Ghaziabad' or 'ready to move flats Bhopal', your ad should be the first answer. We build tight search campaigns with call, WhatsApp and form tracking.",
+        "chips": ["Search", "Performance Max", "YouTube", "Call ads", "GA4 + GTM"],
+        "points": [
+            ("High-intent keyword plans", "City and locality level keywords, competitor terms where allowed, and long negative lists so you don't pay for jobs, DIY or free-panel searches."),
+            ("Landing pages that match", "Each ad group lands on a page that answers the exact search, which improves Quality Score and lowers cost per click."),
+            ("Calls and WhatsApp tracked", "Call extensions, call tracking and WhatsApp click tracking in GA4 so we optimise for conversations, not visits."),
+            ("Performance Max with guardrails", "PMax for scale only after search is profitable, with brand exclusions and asset groups per project or service."),
+            ("YouTube for consideration", "Short video ads for project walkthroughs and solar explainers, retargeted to people who searched."),
+            ("Monthly search term clean-up", "We read the search terms report every week and cut waste fast."),
+        ],
+        "faq": [
+            ("Is Google Ads better than Meta Ads for solar?", "They do different jobs. Google catches people already searching, so leads are high intent but limited in volume. Meta creates demand. Most installers do best with both."),
+            ("Can you track phone calls from ads?", "Yes. We set up call extensions, call conversion tracking and WhatsApp click events so you see exactly which keywords bring calls."),
+            ("Do you need access to my Google Ads account?", "We work inside your own account so the data and history always stay yours."),
+        ],
+    },
+    {
+        "slug": "website-design", "icon": "web", "bg": "#fff1cc", "c": "#d98a00",
+        "name": "Website Design", "short": "Fast, SEO-ready lead websites",
+        "title": "Website Design for Solar & Real Estate Businesses | SEO-Ready Landing Pages",
+        "desc": "Fast, mobile-first websites and landing pages for solar companies, builders and brokers. Built for SEO, Google Ads Quality Score and WhatsApp enquiries.",
+        "h1": "Websites that turn ad clicks into <span class=\"hl hy\">enquiries</span>",
+        "lead": "A slow, generic website wastes your ad budget. We design fast, mobile-first sites and project landing pages that rank on Google, show up in AI answers and push every visitor to WhatsApp or a call.",
+        "chips": ["Landing pages", "Project microsites", "SEO", "Schema markup", "WhatsApp CTAs"],
+        "points": [
+            ("Mobile-first and fast", "Most of your traffic is on phones. We build lightweight pages that load quickly on 4G."),
+            ("Built for local SEO", "City and service pages, schema markup, Google Business Profile alignment and clean URLs."),
+            ("Ready for AI search", "Clear answers, FAQs and structured data so ChatGPT, Claude, Perplexity and Google AI Overviews can understand and cite you."),
+            ("Project microsites", "For builders: one microsite per project with RERA details, floor plans, price sheet request and site-visit booking."),
+            ("Solar savings calculators", "For installers: simple bill-to-system-size and subsidy calculators that start a WhatsApp conversation."),
+            ("You own everything", "Domain, hosting and code in your name. We hand over full access."),
+        ],
+        "faq": [
+            ("How long does a website take?", "A focused landing page takes about a week; a full business website with service and city pages usually takes two to four weeks, depending on content."),
+            ("Will my website show up on Google?", "We build every site with technical SEO, local pages and schema from day one, then add blogs over time. Rankings depend on competition, so we track and improve monthly."),
+            ("Can you redesign my existing site?", "Yes. We can rebuild on your current domain and keep or redirect your old URLs so you don't lose rankings."),
+        ],
+    },
+    {
+        "slug": "ai-video-production", "icon": "video", "bg": "#dcf8ee", "c": "#0e9e72",
+        "name": "AI Videos", "short": "Ad videos in days, no studio",
+        "title": "AI Video Production for Ads | Reels, Explainers & Project Walkthroughs",
+        "desc": "AI-assisted video ads, reels, explainers and property walkthroughs for solar and real estate brands. Fast turnaround without a studio shoot.",
+        "h1": "AI videos that make people <span class=\"hl hm\">stop scrolling</span>",
+        "lead": "Video is what wins on Instagram, Facebook and YouTube. We script, generate and edit AI-assisted ad videos, explainers and walkthroughs in days, so you can test more creatives every month.",
+        "chips": ["Reels ads", "Explainers", "Walkthroughs", "Hindi + English", "Voiceover"],
+        "points": [
+            ("Hook-first scripts", "Every video opens with a hook built for the first three seconds, written for your buyer."),
+            ("Hindi, English and Hinglish", "Voiceovers and captions in the language your customers actually speak."),
+            ("Solar explainers", "How net metering works, how much subsidy you get, how a rooftop install happens, in under 45 seconds."),
+            ("Property walkthroughs", "Turn renders, floor plans and site photos into reels that sell location and lifestyle."),
+            ("Many variations", "Several hooks and lengths per concept so Meta and YouTube can find the winner."),
+            ("Real footage mixed in", "We combine your real site, team and customer footage with AI scenes for trust."),
+        ],
+        "faq": [
+            ("Are AI videos allowed in ads?", "Yes, as long as they follow Meta and Google ad policies and don't mislead. We keep claims accurate and add disclosures when platforms ask for them."),
+            ("How fast can I get a video?", "Most ad videos are delivered in two to five working days after script approval."),
+            ("Can I use my own footage?", "Yes, and we recommend it. Real installation or site footage mixed with AI scenes usually builds more trust."),
+        ],
+    },
+    {
+        "slug": "ai-avatar-videos", "icon": "avatar", "bg": "#ffe6f2", "c": "var(--pink)",
+        "name": "AI Avatar Videos", "short": "A presenter for every ad",
+        "title": "AI Avatar Videos for Business | Spokesperson Videos in Hindi & English",
+        "desc": "AI avatar spokesperson videos for solar companies, builders and brokers. Explain subsidy, projects and offers in Hindi or English without recording every time.",
+        "h1": "AI avatar videos: your <span class=\"hl hp\">spokesperson</span>, on demand",
+        "lead": "Record once, then create presenter-style videos for every offer, project or FAQ. AI avatar videos let solar and real estate teams publish consistent, professional explainers every week.",
+        "chips": ["Founder avatar", "Stock avatars", "Lip-sync", "Multi-language", "Consent-based"],
+        "points": [
+            ("Your own digital twin", "With your written consent, we create an avatar of you or your sales head from a short recording."),
+            ("Weekly explainer videos", "PM Surya Ghar subsidy updates, project launches, price changes and FAQs as quick presenter videos."),
+            ("Multiple languages", "The same script in Hindi and English to reach more buyers."),
+            ("Made for ads and WhatsApp", "Vertical formats for reels and stories, and short clips your sales team can forward on WhatsApp."),
+            ("Brand-safe", "Accurate scripts, your brand colours and logo, and no misleading claims."),
+            ("Faster than shoots", "No studio booking or reshoots when a number changes. Edit the script and regenerate."),
+        ],
+        "faq": [
+            ("Is an AI avatar of me safe?", "We only create a personal avatar with your written consent, and you approve every script and video before it is published."),
+            ("Do avatar videos work for ads?", "They work well for explainers, FAQs and updates. For the main ad creatives we test them against real footage and UGC and keep what converts."),
+            ("Which languages can the avatar speak?", "Hindi and English are standard; other Indian languages are possible depending on the tool and voice quality."),
+        ],
+    },
+    {
+        "slug": "ai-automation", "icon": "bolt", "bg": "#e2f5ff", "c": "#1385c9",
+        "name": "AI Automation", "short": "WhatsApp, CRM and follow-ups on autopilot",
+        "title": "AI Automation for Lead Follow-up | WhatsApp Bots, CRM & Sales Workflows",
+        "desc": "AI automation for solar and real estate sales teams: instant WhatsApp replies, lead routing, CRM updates, follow-up sequences and site-visit reminders.",
+        "h1": "AI automation so <span class=\"hl hc\">no lead goes cold</span>",
+        "lead": "Leads lose interest fast. We connect your ads, WhatsApp and CRM so every enquiry gets an instant reply, the right salesperson gets notified, and follow-ups happen on time without manual work.",
+        "chips": ["WhatsApp bots", "Lead routing", "CRM sync", "Follow-up sequences", "Google Sheets"],
+        "points": [
+            ("Instant WhatsApp replies", "Every new lead gets a personalised WhatsApp message within seconds, with brochure, price sheet or subsidy info."),
+            ("Qualify with AI", "An AI assistant asks the right questions (bill amount, roof, budget, timeline) and tags hot leads."),
+            ("Route to the right person", "Leads are assigned by city, project or language and pushed to your sales team instantly."),
+            ("Follow-up sequences", "Day 1, 3, 7 and 14 reminders, site-visit confirmations and re-engagement for old leads."),
+            ("CRM and Sheets sync", "Meta, Google and website leads land in one place, with source and campaign attached."),
+            ("Reporting for owners", "A simple daily summary: new leads, calls made, visits booked, deals closed."),
+        ],
+        "faq": [
+            ("Do I need a CRM to start?", "No. We can start with Google Sheets and WhatsApp and move you to a CRM when volume grows."),
+            ("Will it use the official WhatsApp Business API?", "For automation at scale, yes. We set up the WhatsApp Business Platform through Meta or an approved provider so your number stays safe."),
+            ("Can automation close sales by itself?", "It handles speed, reminders and qualification. Your team still closes. Automation makes sure they only spend time on warm leads."),
+        ],
+    },
+]
+
+# ---------------------------------------------------------------- industries
+INDUSTRIES = {
+    "solar": {
+        "slug": "solar-marketing-agency", "name": "Solar",
+        "title": "Solar Marketing Agency | Rooftop Solar & PM Surya Ghar Lead Generation",
+        "desc": "Performance marketing agency for solar installers and EPC companies. Meta Ads, Google Ads, websites and AI automation to get rooftop solar and PM Surya Ghar subsidy leads in Delhi NCR, Gurugram, Ghaziabad, Bhopal, Rewa and Satna.",
+        "h1": "Solar lead generation for <span class=\"hl hy\">installers & EPCs</span>",
+        "lead": "PM Surya Ghar: Muft Bijli Yojana has made rooftop solar a mainstream household decision. We help installers turn that demand into booked site surveys with ads, a strong website and instant WhatsApp follow-up.",
+        "pains": [
+            ("Leads that never pick up", "Cheap form fills with wrong numbers or people who only wanted 'free solar'. We qualify with bill amount, roof ownership and DISCOM before the lead reaches you."),
+            ("Subsidy confusion", "Buyers don't understand the ₹78,000 subsidy cap, net metering or loan options. Our ads and videos explain it simply so the call starts warm."),
+            ("Slow follow-up", "A lead that waits hours goes to the next installer. Automation replies on WhatsApp in seconds."),
+            ("No trust online", "No Google reviews, no installation proof, no website. We fix the proof layer before scaling ads."),
+        ],
+        "offer": ["Residential rooftop (PM Surya Ghar)", "Housing societies (RWA)", "Commercial & industrial rooftop", "Solar for schools, hospitals, factories", "Solar pumps (PM-KUSUM) in rural MP"],
+        "keywords": ["solar panel installation near me", "rooftop solar subsidy", "PM Surya Ghar registration", "on-grid solar system price", "3kW solar system cost", "solar company in Gurugram", "solar installer Ghaziabad", "solar EPC Bhopal", "net metering Delhi"],
+    },
+    "real-estate": {
+        "slug": "real-estate-marketing-agency", "name": "Real Estate",
+        "title": "Real Estate Marketing Agency | Property Leads for Builders, Brokers & Channel Partners",
+        "desc": "Performance marketing for real estate: Meta Ads, Google Ads, project microsites, AI walkthrough videos and WhatsApp automation for builders, brokers and channel partners in Delhi NCR, Gurugram, Ghaziabad, Bhopal, Rewa and Satna.",
+        "h1": "Real estate leads that <span class=\"hl hm\">book site visits</span>",
+        "lead": "From new launches on Dwarka Expressway to plotted colonies in Rewa, property buyers research on Instagram, Google and YouTube before they call. We put your project in front of the right buyers and follow up until they visit.",
+        "pains": [
+            ("Low-quality portal leads", "Shared leads from portals go to five brokers at once. Your own ad-driven leads are exclusive to you."),
+            ("RERA-compliant ads", "Every ad and landing page shows the RERA registration number and accurate details, as state RERA authorities require."),
+            ("Site visits, not just leads", "We optimise for calls, WhatsApp chats and booked visits, and track them back to the ad."),
+            ("Too many projects, one budget", "Separate campaigns and landing pages per project so you know exactly which one is selling."),
+        ],
+        "offer": ["New launch & pre-launch campaigns", "Ready-to-move inventory", "Plots, farmhouses & township projects", "Commercial shops & offices", "Channel partner & broker lead generation", "NRI buyer campaigns"],
+        "keywords": ["flats in Gurugram", "Dwarka Expressway projects", "ready to move flats Ghaziabad", "plots in Bhopal", "residential plots Rewa", "real estate marketing agency Delhi NCR", "property leads Meta ads", "builder digital marketing"],
+    },
+}
+
+# ---------------------------------------------------------------- cities
+# Local facts kept general and verifiable: DISCOMs, RERA authority, well-known micro-markets.
+CITIES = [
+    {
+        "slug": "delhi", "name": "Delhi", "state": "Delhi", "region": "NCR",
+        "discom": "BSES Rajdhani, BSES Yamuna, Tata Power-DDL and NDMC",
+        "rera": "Delhi RERA",
+        "micro": ["Dwarka", "Rohini", "South Delhi", "East Delhi", "Land pooling zones (L-zone, N-zone)"],
+        "solar_angle": "Delhi homes have small, often shared rooftops, so the pitch is about bill savings per kW and clear net-metering help with the four DISCOMs. Group-housing and RWA rooftops are a strong segment.",
+        "re_angle": "Delhi demand is driven by builder floors, redevelopment and resale in established colonies, plus land pooling interest. Hyper-local targeting by colony and pin-code clusters matters more than city-wide ads.",
+        "intro": "Delhi is a crowded, high-cost market for ads. Winning here means sharper targeting, faster follow-up and landing pages that answer local questions better than competitors.",
+    },
+    {
+        "slug": "delhi-ncr", "name": "Delhi NCR", "state": "Delhi, Haryana, Uttar Pradesh", "region": "NCR",
+        "discom": "BSES, Tata Power-DDL, DHBVN (Gurugram, Faridabad), PVVNL (Ghaziabad, Noida)",
+        "rera": "Delhi RERA, HRERA and UP RERA",
+        "micro": ["Gurugram", "Noida & Greater Noida", "Ghaziabad", "Faridabad", "Dwarka Expressway", "Yamuna Expressway"],
+        "solar_angle": "NCR spans several DISCOMs and three state rules, so one generic solar ad rarely works. We split campaigns by DISCOM area and talk about the exact net-metering and subsidy process buyers will face.",
+        "re_angle": "NCR is India's most competitive property ad market. Projects compete on expressway access, possession timelines and price per sq ft, and every state RERA expects its registration number in the ad.",
+        "intro": "One region, three states, many micro-markets. We run NCR campaigns city by city so budgets go where your buyers actually are.",
+    },
+    {
+        "slug": "gurugram", "name": "Gurugram", "state": "Haryana", "region": "NCR",
+        "discom": "DHBVN (Dakshin Haryana Bijli Vitran Nigam)",
+        "rera": "HRERA Gurugram",
+        "micro": ["Dwarka Expressway", "Golf Course Extension Road", "Sohna Road", "New Gurugram (Sectors 76 to 95)", "Southern Peripheral Road"],
+        "solar_angle": "Gurugram has many independent houses, villas and large societies with high summer bills, which makes rooftop solar an easy savings story. Commercial rooftops on offices and warehouses are a second segment.",
+        "re_angle": "Gurugram is a launch-heavy market with premium and luxury inventory. Buyers compare corridors (Dwarka Expressway vs Golf Course Extension vs SPR), so campaigns should sell the corridor as much as the project.",
+        "intro": "Gurugram buyers are digital-first and compare everything online. Your ads, website and follow-up have to feel as premium as your project.",
+    },
+    {
+        "slug": "ghaziabad", "name": "Ghaziabad", "state": "Uttar Pradesh", "region": "NCR",
+        "discom": "PVVNL (Paschimanchal Vidyut Vitran Nigam)",
+        "rera": "UP RERA",
+        "micro": ["Raj Nagar Extension", "Indirapuram", "Crossings Republik", "Siddharth Vihar", "Vasundhara", "NH-24 / Delhi-Meerut Expressway corridor"],
+        "solar_angle": "Ghaziabad has many independent houses and builder floors where owners control the roof. UP households can also receive additional state support alongside central subsidy, which is a strong message when confirmed for the buyer's case.",
+        "re_angle": "Ghaziabad sells on value and connectivity: Delhi-Meerut Expressway, RRTS and metro access. Ready-to-move and mid-segment buyers respond to clear price and possession messaging, with UP RERA numbers shown as UP RERA requires.",
+        "intro": "Ghaziabad is a value-conscious, connectivity-driven market. Clear prices, clear subsidy numbers and fast WhatsApp replies win here.",
+    },
+    {
+        "slug": "bhopal", "name": "Bhopal", "state": "Madhya Pradesh", "region": "MP",
+        "discom": "MP Madhya Kshetra Vidyut Vitaran Company (MPMKVVCL)",
+        "rera": "MP RERA",
+        "micro": ["Kolar Road", "Narmadapuram (Hoshangabad) Road", "Ayodhya Bypass", "Misrod", "Bawadia Kalan", "Katara Hills"],
+        "solar_angle": "Bhopal has plenty of independent houses with usable roofs and strong sunlight. The opportunity is still early: many homeowners have heard of PM Surya Ghar but don't know the steps, so education-led ads work well.",
+        "re_angle": "Bhopal real estate is driven by plotted developments, independent houses and mid-segment flats along growth corridors like Kolar Road and Narmadapuram Road. Families research on Facebook and YouTube, often in Hindi.",
+        "intro": "Bhopal is a fast-growing tier-2 market where ad costs are still reasonable and Hindi-first creative performs strongly.",
+    },
+    {
+        "slug": "rewa", "name": "Rewa", "state": "Madhya Pradesh", "region": "MP",
+        "discom": "MP Poorv Kshetra Vidyut Vitaran Company (MPPKVVCL)",
+        "rera": "MP RERA",
+        "micro": ["Rewa city and Civil Lines", "Ratahara", "Bypass road colonies", "Sirmour Chowk area", "Nearby towns: Mauganj, Sirmour, Teonthar"],
+        "solar_angle": "Rewa is known nationally for the Rewa Ultra Mega Solar park, so solar is a familiar idea. Rooftop and solar-pump (PM-KUSUM) demand from homes, shops and farms is a natural next step for local installers.",
+        "re_angle": "Rewa buyers are mostly looking for residential plots, independent houses and small commercial spaces. Trust and local reputation matter, so ads should feature the developer, approvals and real site photos.",
+        "intro": "In Rewa, a small budget goes a long way if the message is local, in Hindi, and backed by real proof. We build that proof and then advertise it.",
+    },
+    {
+        "slug": "satna", "name": "Satna", "state": "Madhya Pradesh", "region": "MP",
+        "discom": "MP Poorv Kshetra Vidyut Vitaran Company (MPPKVVCL)",
+        "rera": "MP RERA",
+        "micro": ["Satna city", "Rewa Road", "Maihar Road", "Industrial and cement belt", "Nearby towns: Maihar, Amarpatan, Nagod"],
+        "solar_angle": "Satna's cement and industrial belt makes commercial and industrial rooftop solar a serious opportunity, alongside residential PM Surya Ghar demand in the city.",
+        "re_angle": "Satna demand is led by plotted colonies, independent homes and commercial space for local businesses. Simple, trust-led Hindi creatives and quick WhatsApp replies convert best.",
+        "intro": "Satna businesses need marketing that is simple, local and measurable. We keep campaigns lean and focused on calls and WhatsApp chats.",
+    },
+]
+
+# ---------------------------------------------------------------- courses (secondary)
+COURSES = [
+    {
+        "name": "Meta Ads & Digital Marketing", "fee": "₹25,000", "img": "classroom-meta-ads.jpg", "c": "var(--coral)",
+        "tag": "Flagship",
+        "alt": "Interactive classroom session led by Sitanshu Tripathi",
+        "sub": "From your first campaign to scaling profitable ad accounts on Facebook and Instagram, plus Google Ads basics.",
+        "mods": ["Business Manager & Pixel", "Campaign structure", "Audiences & Advantage+", "Creative testing & hooks", "Lead gen & WhatsApp funnels", "Budgets, scaling, reports", "Google Ads fundamentals", "Live client-style projects"],
+    },
+    {
+        "name": "AI Tools & Website Design", "fee": "₹25,000", "img": "ai-tools-session.jpg", "c": "var(--blue)",
+        "tag": "New-age skills",
+        "alt": "Session on AI tools and their opportunities and risks",
+        "sub": "Create content, videos and full websites with AI, then turn those skills into a job, clients or your own brand.",
+        "mods": ["ChatGPT, Claude & prompting", "AI images & design", "AI video & avatars", "Automation workflows", "No-code website design", "Landing pages that convert", "Domain, hosting & launch", "Freelancing with AI"],
+    },
+]
+
+HOME_FAQ = [
+    ("What does Kiran Growth School do?", "Kiran Growth School is a performance marketing agency. We run Meta Ads, Google Ads, websites, AI videos, AI avatar videos and AI automation for businesses, with a focus on solar companies and real estate builders, brokers and channel partners. We also run a small academy with Meta Ads and AI courses."),
+    ("Which cities do you serve?", "We work with businesses in Delhi, Delhi NCR (Gurugram, Ghaziabad, Noida, Faridabad) and Madhya Pradesh (Bhopal, Rewa, Satna). Campaigns are managed remotely, so we can also work with clients elsewhere in India."),
+    ("Why focus on solar and real estate?", "Both are high-ticket, high-trust purchases where buyers research online before they call, and where fast follow-up decides who wins the sale. Our ad, website and WhatsApp automation playbooks are built for exactly that."),
+    ("How do I get started?", "Message us on WhatsApp at +91 93998 51765 with your business name, city and what you sell. We review your current ads, website and social pages and reply with a free growth plan."),
+    ("How do you charge?", "Usually a fixed monthly management fee plus your ad budget, which you pay directly to Meta or Google. Websites, videos and automation are quoted per project. Ask on WhatsApp for a quote."),
+    ("Do you guarantee leads or rankings?", "No honest agency can guarantee results, because they depend on your offer, market and budget. We do commit to transparent tracking, weekly reporting and constant testing."),
+]
