@@ -43,6 +43,75 @@ I = {
     "chart": _ico('<path d="M3 21h18M6 17V11M11 17V6M16 17v-4M21 17V8"/>'),
 }
 
+# Free Unsplash photos (Unsplash License), hotlinked from images.unsplash.com.
+# If a photo ever fails to load, the browser swaps in a local illustration.
+PHOTOS = {
+    "solar_roof": ("photo-1658298775754-5839ffd434cc", "Solar panels installed on a residential rooftop", "solar"),
+    "solar_install": ("photo-1624397640148-949b1732bb0a", "Technician installing a solar panel on a roof", "solar"),
+    "solar_house": ("photo-1655300256335-beef51a914fe", "House with rooftop solar panels", "solar"),
+    "solar_rows": ("photo-1694327671725-e2a81cda3436", "Rows of solar panels on a commercial rooftop", "solar"),
+    "solar_close": ("photo-1724041875334-0a6397111c7e", "Close-up of a solar panel on a building", "solar"),
+    "city": ("photo-1715870251864-64fd4a6ae4ad", "Skyline of tall buildings in an Indian city", "buildings"),
+    "apartments": ("photo-1784894690165-8c6fe7dae24d", "Modern apartment building with balconies and trees", "buildings"),
+    "corridor": ("photo-1787303278832-4b952a3c5183", "High-rise apartments overlooking a green corridor", "buildings"),
+    "street": ("photo-1695667424131-a9680e0307ee", "Busy city street next to tall buildings", "buildings"),
+    "tower": ("photo-1663985139222-6af2f8646104", "Tall residential tower with many windows", "buildings"),
+    "analytics": ("photo-1551288049-bebda4e38f71", "Performance marketing analytics dashboard on a laptop", "analytics"),
+    "laptop": ("photo-1460925895917-afdab827c52f", "Marketing performance reports on a laptop screen", "analytics"),
+}
+
+def img(key, w=1000, alt=None, eager=False, style=""):
+    pid, palt, fb = PHOTOS[key]
+    base = f"https://images.unsplash.com/{pid}?auto=format&fit=crop&q=70"
+    srcset = ", ".join(f"{base}&w={x} {x}w" for x in (480, 800, 1200, 1600))
+    load = 'fetchpriority="high"' if eager else 'loading="lazy"'
+    st = f' style="{style}"' if style else ""
+    return (f'<img src="{base}&w={w}" srcset="{srcset}" sizes="(max-width:760px) 100vw, 50vw" alt="{E(alt or palt)}" {load} decoding="async"{st} '
+            f'onerror="this.onerror=null;this.removeAttribute(\'srcset\');this.src=\'/assets/img/ill/{fb}.svg\'">')
+
+def pic(key, caption=None, ratio="4/3", c="var(--sun)"):
+    cap = f'<figcaption>{caption}</figcaption>' if caption else ""
+    return f'<figure class="pic" style="--c:{c};aspect-ratio:{ratio}">{img(key)}{cap}</figure>'
+
+def photo_band(items):
+    return '<div class="band3">' + "".join(pic(k, cap, "4/3", c) for k, cap, c in items) + "</div>"
+
+def bar_chart(title, bars, source, unit="", color="var(--blue)"):
+    """Horizontal bar chart as inline SVG (crawlable text). bars: [(label, value, display)]"""
+    mx = max(v for _, v, _ in bars)
+    rows = len(bars)
+    h = 44 * rows + 10
+    h = 62 * rows + 6
+    out = [f'<svg viewBox="0 0 420 {h}" role="img" aria-label="{E(title)}" class="chart-svg">']
+    for i, (lab, v, disp) in enumerate(bars):
+        y = 4 + i * 62
+        wbar = max(6, int(270 * v / mx))
+        out.append(f'<text x="0" y="{y + 15}" class="cl">{E(lab)}</text>')
+        out.append(f'<rect x="0" y="{y + 22}" width="{wbar}" height="30" rx="8" fill="{color}" stroke="#14111f" stroke-width="2.5"/>')
+        out.append(f'<text x="{wbar + 10}" y="{y + 43}" class="cv">{E(disp)}</text>')
+    out.append("</svg>")
+    return f'<figure class="chart"><figcaption><b>{E(title)}</b></figcaption>{"".join(out)}<p class="src">Source: {source}</p></figure>'
+
+def funnel_graphic():
+    steps = [("Ad seen", "Meta, Google, YouTube", "#ffc626"), ("Enquiry", "Form, call or WhatsApp", "#1fd39b"),
+             ("Instant reply", "WhatsApp in seconds", "#5ec8ff"), ("Qualified", "Bill, budget, timeline", "#ff6fb5"),
+             ("Visit / survey", "Booked & reminded", "#8b5cf6"), ("Customer", "Sale tracked to the ad", "#ff5a36")]
+    w = 420; out = [f'<svg viewBox="0 0 {w} 350" role="img" aria-label="Lead funnel from ad to customer" class="chart-svg">']
+    for i, (t, sub, col) in enumerate(steps):
+        y = 4 + i * 57; inset = i * 18
+        out.append(f'<rect x="{inset}" y="{y}" width="{w - 2 * inset}" height="50" rx="12" fill="{col}" stroke="#14111f" stroke-width="2.5"/>')
+        tc = "#fff" if col in ("#8b5cf6", "#ff5a36") else "#14111f"
+        out.append(f'<text x="{w / 2}" y="{y + 22}" text-anchor="middle" class="fl" fill="{tc}">{E(t)}</text><text x="{w / 2}" y="{y + 40}" text-anchor="middle" class="fs" fill="{tc}">{E(sub)}</text>')
+    out.append("</svg>")
+    return f'<figure class="chart"><figcaption><b>How every enquiry is handled</b></figcaption>{"".join(out)}<p class="src">Our lead system: each stage is tracked and reported weekly.</p></figure>'
+
+def solar_charts():
+    sub = bar_chart("PM Surya Ghar central subsidy by system size", [("1 kW", 30000, "₹30,000"), ("2 kW", 60000, "₹60,000"), ("3 kW and above", 78000, "₹78,000 (cap)")],
+                    'MNRE scheme guidelines as reported by <a href="https://www.businesstoday.in/personal-finance/news/story/pm-surya-ghar-muft-bijli-yojana-how-it-works-who-can-apply-and-what-benefits-households-get-533959-2026-05-29" rel="noopener" target="_blank">Business Today</a>. Confirm on pmsuryaghar.gov.in.', color="#ffc626")
+    inst = bar_chart("Homes with rooftop solar under PM Surya Ghar", [("Mar 2026", 26.19, "26.19 lakh"), ("Aug 2026", 50, "50 lakh+")],
+                     'MNRE (Mar 2026) and Union Energy Minister (Aug 2026) via <a href="https://newsonair.gov.in/over-50-lakh-households-benefited-from-rooftop-solar-installation-energy-minister-pralhad-joshi/" rel="noopener" target="_blank">News on AIR</a>.', color="#1fd39b")
+    return sub, inst
+
 def wa(msg):
     return f"https://wa.me/{SITE['wa']}?text=" + urllib.parse.quote(msg)
 
@@ -89,7 +158,7 @@ def footer():
       <div style="--c:var(--pink)"><h4>Locations</h4><ul>{loc}</ul></div>
       <div style="--c:var(--sky)"><h4>Contact</h4><ul><li><a href="{E(wa("Hi Kiran Growth School, I have an enquiry."))}" target="_blank" rel="noopener">WhatsApp {SITE["phone"]}</a></li><li><a href="tel:{SITE["phone_e164"]}">Call {SITE["phone"]}</a></li><li style="color:#c9c4d8;font-weight:600;font-size:.95rem;overflow-wrap:anywhere">{SITE["email"]}</li><li style="color:#c9c4d8;font-weight:600;font-size:.95rem">{SITE["hours"]}</li></ul></div>
     </div>
-    <div class="fbot"><span>© {TODAY.year} Kiran Growth School. All rights reserved.</span><span>Founded by {SITE["founder"]}</span></div>
+    <div class="fbot"><span>© {TODAY.year} Kiran Growth School. All rights reserved.</span><span>Founded by {SITE["founder"]} · Stock photos from <a href="https://unsplash.com/" target="_blank" rel="noopener" style="color:inherit">Unsplash</a></span></div>
   </div>
 </footer>
 <a class="fab" href="{E(wa("Hi Kiran Growth School, I have an enquiry."))}" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">{I["wa"]}<span>Chat with us</span></a>'''
@@ -232,8 +301,8 @@ def svc_cards(highlight=None):
 def industry_cards():
     sol, re_ = INDUSTRIES["solar"], INDUSTRIES["real-estate"]
     return f'''<div class="ind">
-<div class="indc solar"><span class="tag" style="--c:var(--coral)"><i></i>Solar & EPC</span><h3>Solar installers & EPC companies</h3><p>Rooftop solar, PM Surya Ghar subsidy leads, housing societies and commercial rooftops.</p><ul>{"".join(f"<li>{E(o)}</li>" for o in sol["offer"][:4])}</ul><a class="btn b-white" href="/{sol["slug"]}/">Solar marketing →</a></div>
-<div class="indc re"><span class="tag" style="--c:var(--blue)"><i></i>Real estate</span><h3>Builders, brokers & channel partners</h3><p>Project launches, ready-to-move inventory, plots and commercial spaces with RERA-compliant ads.</p><ul>{"".join(f"<li>{E(o)}</li>" for o in re_["offer"][:4])}</ul><a class="btn b-white" href="/{re_["slug"]}/">Real estate marketing →</a></div>
+<div class="indc solar">{pic("solar_house", None, "16/9", "var(--ink)")}<span class="tag" style="--c:var(--coral)"><i></i>Solar & EPC</span><h3>Solar installers & EPC companies</h3><p>Rooftop solar, PM Surya Ghar subsidy leads, housing societies and commercial rooftops.</p><ul>{"".join(f"<li>{E(o)}</li>" for o in sol["offer"][:4])}</ul><a class="btn b-white" href="/{sol["slug"]}/">Solar marketing →</a></div>
+<div class="indc re">{pic("city", None, "16/9", "var(--ink)")}<span class="tag" style="--c:var(--blue)"><i></i>Real estate</span><h3>Builders, brokers & channel partners</h3><p>Project launches, ready-to-move inventory, plots and commercial spaces with RERA-compliant ads.</p><ul>{"".join(f"<li>{E(o)}</li>" for o in re_["offer"][:4])}</ul><a class="btn b-white" href="/{re_["slug"]}/">Real estate marketing →</a></div>
 </div>'''
 
 def other_industries(city=None):
@@ -295,9 +364,17 @@ def load_posts():
     posts.sort(key=lambda p: (p["date_obj"], int(p.get("order", "0") or 0)), reverse=True)
     return posts
 
+POST_IMGS = {"solar": ["solar_roof", "solar_install", "solar_rows", "solar_house", "solar_close"],
+             "real-estate": ["apartments", "corridor", "tower", "city", "street"],
+             "ai": ["analytics", "laptop"], "growth": ["laptop", "analytics", "city"]}
+
+def post_img(p):
+    pool = POST_IMGS.get(p["category"], ["analytics"])
+    return pool[sum(map(ord, p["slug"])) % len(pool)]
+
 def post_card(p):
     cat, c = CAT.get(p["category"], ("Insights", "var(--sky)"))
-    return f'<a class="card" href="/blog/{p["slug"]}/" style="--bg:var(--white)"><small style="color:var(--ink)"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:{c};border:1.5px solid var(--ink);margin-right:6px"></span>{cat} · {p["date_obj"]:%d %b %Y}</small><h3>{E(p["title"])}</h3><p>{E(p["description"])}</p><span class="more">Read · {p["mins"]} min →</span></a>'
+    return f'<a class="card post" href="/blog/{p["slug"]}/" style="--bg:var(--white)"><span class="thumb">{img(post_img(p), 600)}</span><small style="color:var(--ink)"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:{c};border:1.5px solid var(--ink);margin-right:6px"></span>{cat} · {p["date_obj"]:%d %b %Y}</small><h3>{E(p["title"])}</h3><p>{E(p["description"])}</p><span class="more">Read · {p["mins"]} min →</span></a>'
 
 # ------------------------------------------------------------------ pages
 def build_home(posts):
@@ -330,6 +407,10 @@ def build_home(posts):
 </section>
 
 <div class="plat" aria-label="Platforms we use"><div class="row">{"".join(f'<span><b style="display:inline-grid;place-items:center;width:40px;height:40px;border-radius:12px;background:{c};color:#14111f;border:2.5px solid #14111f">{ic}</b>{t}</span>' for c, ic, t in [("#ffc626", I["google"], "Google Ads"), ("#1fd39b", I["meta"], "Meta Ads"), ("#ff6fb5", I["insta"], "Instagram"), ("#5ec8ff", I["video"], "YouTube"), ("#ff5a36", I["wa"], "WhatsApp Business"), ("#ffffff", I["web"], "Websites"), ("#ffc626", I["avatar"], "AI Avatars"), ("#1fd39b", I["bolt"], "AI Automation")] * 2)}</div></div>
+
+<section class="sec" style="padding-bottom:0"><div class="wrap">
+{photo_band([("solar_install", "<b>Rooftop solar</b><span>Installers & EPCs</span>", "var(--sun)"), ("corridor", "<b>Real estate</b><span>Builders, brokers & CPs</span>", "var(--mint)"), ("analytics", "<b>Data-led ads</b><span>Every rupee tracked</span>", "var(--blue)")])}
+</div></section>
 
 <section class="sec" id="industries">
   <div class="wrap">
@@ -377,6 +458,13 @@ def build_home(posts):
   </div>
 </section>
 
+<section class="sec" id="data" style="padding-top:0">
+  <div class="wrap">
+    <div class="head"><div>{tag("By the numbers", "var(--sun)")}<h2>The demand is <span class="hl hy">real</span></h2></div><p>Rooftop solar is now a mainstream household purchase in India, and every buyer, solar or property, expects a fast reply. Here's what we build campaigns around.</p></div>
+    <div class="grid3 charts">{solar_charts()[1]}{solar_charts()[0]}{funnel_graphic()}</div>
+  </div>
+</section>
+
 {steps_block()}
 
 <section class="sec" style="padding-top:0">
@@ -386,11 +474,10 @@ def build_home(posts):
   </div>
 </section>
 
-<section class="sec" style="padding-top:0">
+<section class="sec academy" id="courses">
   <div class="wrap">
-    <div class="paths" style="grid-template-columns:1fr">
-      <div class="path b" style="flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:space-between"><div style="max-width:40em"><span class="k">Also from us</span><h3 style="margin-top:12px">Want to learn it yourself?</h3><p style="margin-top:8px">Our academy runs live Meta Ads and AI Tools &amp; Website Design courses (₹25,000 each), taught by people who run campaigns every day.</p></div><a class="btn b-white" href="/courses/">View courses →</a></div>
-    </div>
+    <div class="head"><div>{tag("The academy", "var(--violet)")}<h2>Learn it yourself: <span class="hl hv">live courses</span></h2></div><p>Our academy teaches the same playbooks our agency runs for clients. Classroom and online batches, ₹25,000 per course, with certificate. <a href="/courses/" style="font-weight:800">All course details →</a></p></div>
+    <div class="courses">{course_cards("h3")}</div>
   </div>
 </section>
 
@@ -460,6 +547,9 @@ def build_industries(posts):
 <div class="ctas">{wa_btn(f"Hi, I run a {ind['name'].lower()} business and want more leads.", "Get a free growth plan")}<a class="btn b-white" href="#cities">See city playbooks</a></div>
 {'<div class="facts"><div><b>50 lakh+</b><span>Homes with rooftop solar under PM Surya Ghar (Aug 2026)</span></div><div><b>₹78,000</b><span>Maximum central subsidy per household</span></div><div><b>300 units</b><span>Free electricity per month target</span></div><div><b>1 crore</b><span>Household target under the scheme</span></div></div>' if key == "solar" else '<div class="facts"><div><b>RERA</b><span>Registration number on every ad & page</span></div><div><b>Exclusive</b><span>Your own leads, not shared portal leads</span></div><div><b>Site visits</b><span>Optimised and tracked to the ad</span></div><div><b>Hindi + English</b><span>Creatives for every buyer</span></div></div>'}
 </div></section>
+<section class="sec" style="padding-bottom:0"><div class="wrap">{photo_band([("solar_install", "<b>Installation proof</b><span>Real roofs build trust</span>", "var(--sun)"), ("solar_rows", "<b>Commercial rooftops</b><span>Factories, schools, offices</span>", "var(--mint)"), ("solar_house", "<b>Home rooftop</b><span>PM Surya Ghar buyers</span>", "var(--coral)")]) if key == "solar" else photo_band([("apartments", "<b>Residential projects</b><span>Launch & ready-to-move</span>", "var(--mint)"), ("corridor", "<b>Growth corridors</b><span>Sell the location</span>", "var(--sun)"), ("tower", "<b>High-rise towers</b><span>Premium inventory</span>", "var(--blue)")])}
+{'<div class="grid2 charts" style="margin-top:34px">' + solar_charts()[0] + solar_charts()[1] + '</div>' if key == "solar" else '<div class="grid2 charts" style="margin-top:34px">' + funnel_graphic() + '<figure class="pic" style="--c:var(--mint);aspect-ratio:auto;min-height:320px">' + img("street") + '<figcaption><b>Buyers research online first</b><span>Instagram, Google & YouTube before the call</span></figcaption></figure></div>'}
+</div></section>
 <section class="sec"><div class="wrap"><div class="head"><div>{tag("Problems we fix", "var(--coral)")}<h2>Why most {E(ind["name"].lower())} ads <span class="hl hc">underperform</span></h2></div></div><div class="grid2">{pains}</div></div></section>
 <section class="sec" style="padding-top:0"><div class="wrap"><div class="head"><div>{tag("What we market", "var(--sun)")}<h2>Campaigns we run</h2></div><p>Search terms we target include:</p></div>
 <div class="grid2"><div class="card"><ul style="margin:0;padding-left:1.1em;display:grid;gap:8px;font-weight:700">{offer}</ul></div><div class="card"><div class="kw">{kw}</div></div></div></div></section>
@@ -501,9 +591,9 @@ def build_locations(posts):
 <div class="ctas">{wa_btn(f"Hi, I'm in {n} and want more leads for my business.", f"Free growth plan for {E(n)}")}<a class="btn b-white" href="#solar">Solar</a><a class="btn b-white" href="#real-estate">Real estate</a></div>
 <div class="facts"><div><b>{E(c["state"])}</b><span>State / region</span></div><div><b>{E(c["rera"])}</b><span>RERA authority for property ads</span></div><div style="grid-column:span 2"><b style="font-size:1rem">{E(c["discom"])}</b><span>DISCOM(s) for solar net metering</span></div></div>
 </div></section>
-<section class="sec" id="solar"><div class="wrap"><div class="ind"><div class="indc solar">{tag("Solar marketing in " + E(n), "var(--coral)")}<h3>Solar lead generation in {E(n)}</h3><p>{E(c["solar_angle"])}</p>
+<section class="sec" id="solar"><div class="wrap"><div class="ind"><div class="indc solar">{pic(["solar_roof", "solar_install", "solar_rows", "solar_house", "solar_close", "solar_roof", "solar_install"][CITIES.index(c)], None, "16/9", "var(--ink)")}{tag("Solar marketing in " + E(n), "var(--coral)")}<h3>Solar lead generation in {E(n)}</h3><p>{E(c["solar_angle"])}</p>
 <ul><li>PM Surya Ghar subsidy campaigns with bill-based lead qualification</li><li>Google Search ads for "{E(sol_kw[0])}" and "{E(sol_kw[1])}"</li><li>Housing society and commercial rooftop campaigns</li><li>Instant WhatsApp replies with subsidy and savings info</li></ul><a class="btn b-white" href="/solar-marketing-agency/">Full solar playbook →</a></div>
-<div class="indc re" id="real-estate">{tag("Real estate marketing in " + E(n), "var(--blue)")}<h3>Property leads in {E(n)}</h3><p>{E(c["re_angle"])}</p>
+<div class="indc re" id="real-estate">{pic(["street", "corridor", "city", "apartments", "tower", "apartments", "corridor"][CITIES.index(c)], None, "16/9", "var(--ink)")}{tag("Real estate marketing in " + E(n), "var(--blue)")}<h3>Property leads in {E(n)}</h3><p>{E(c["re_angle"])}</p>
 <ul><li>{E(c["rera"])}-compliant ads and landing pages</li><li>Project microsites and AI walkthrough videos</li><li>Lead forms and click-to-WhatsApp ads that book site visits</li><li>Separate campaigns per project and micro-market</li></ul><a class="btn b-white" href="/real-estate-marketing-agency/">Full real estate playbook →</a></div></div></div></section>
 <section class="sec" style="padding-top:0"><div class="wrap"><div class="head"><div>{tag("Micro-markets", "var(--pink)")}<h2>Areas we target in and around {E(n)}</h2></div><p>Ads are targeted by locality and radius, not just city name, so budget goes to the buyers who can actually visit.</p></div><div class="kw">{micro}</div>
 <div class="head" style="margin-top:44px;margin-bottom:20px"><div><h3>Popular searches we target</h3></div></div><div class="kw">{"".join(f"<span>{E(k)}</span>" for k in sol_kw + re_kw)}</div></div></section>
@@ -520,15 +610,21 @@ def build_locations(posts):
              f"Digital and performance marketing agency in {n}: Meta Ads, Google Ads, website design, social media, AI videos and WhatsApp automation. Specialists in solar and real estate leads. WhatsApp +91 93998 51765.",
              body, active="/locations/", schema=[ld, faq_schema(faq), crumbs_schema(crc)])
 
-def build_courses():
-    cr = [("/", "Home"), ("/courses/", "Courses")]
+def course_cards(h="h2"):
     cards = ""
     for co in COURSES:
         mods = "".join(f"<li>{I['tick']}{E(m)}</li>" for m in co["mods"])
         cards += f'''<article class="course" style="--c:{co["c"]};--fc:#fff">
 <div class="ph"><img src="/assets/img/{co["img"]}" alt="{E(co["alt"])}" loading="lazy"><div class="tg"><span>{co["tag"]}</span><span>Classroom + Online</span></div></div>
-<div class="body"><div><h2 style="font-size:clamp(1.45rem,2.4vw,1.85rem);font-weight:900">{E(co["name"])}</h2><p class="sub">{E(co["sub"])}</p></div><ul class="mods">{mods}</ul>
+<div class="body"><div><{h} style="font-size:clamp(1.45rem,2.4vw,1.85rem);font-weight:900;font-family:var(--display);line-height:1.1">{E(co["name"])}</{h}><p class="sub">{E(co["sub"])}</p></div><ul class="mods">{mods}</ul>
 <div class="price"><div><small>Course fee</small><b>{co["fee"]}</b></div>{wa_btn(f"Hi, I want to enrol in the {co['name']} course ({co['fee']}). Please share batch details.", "Enquire now")}</div></div></article>'''
+    return cards
+
+GALLERY = '''<div class="gal"><figure style="--c:var(--sun)"><img src="/assets/img/workshop.jpg" alt="Students in an interactive marketing workshop at Kiran Growth School" loading="lazy"><figcaption><b>Interactive workshops</b><span>Activities, role-plays and live discussion</span></figcaption></figure><figure style="--c:var(--mint)"><img src="/assets/img/ai-session.jpg" alt="AI session on opportunity and risk at Kiran Growth School" loading="lazy" style="object-position:50% 20%"><figcaption><b>AI sessions</b><span>Opportunity, risk and real-world use</span></figcaption></figure></div>'''
+
+def build_courses():
+    cr = [("/", "Home"), ("/courses/", "Courses")]
+    cards = course_cards("h2")
     faq = [("What do the courses cost?", "Meta Ads & Digital Marketing is ₹25,000 and AI Tools & Website Design is ₹25,000. Message us on WhatsApp for batch dates and combo offers."),
            ("Do I need any experience?", "No. Both courses start from the basics and build up to advanced, practical work. You need a laptop and internet."),
            ("Online or classroom?", "We run both classroom workshops and online sessions. Tell us what suits you and we'll suggest a batch."),
@@ -580,7 +676,7 @@ def build_blog(posts):
         body = f'''<section class="phero"><div class="wrap">{crumbs_html(crp)}
 <div style="margin-top:18px">{tag(cat, c)}</div><h1 style="max-width:26ch">{E(p["title"])}</h1><p class="lead">{E(p["description"])}</p>
 <div class="meta"><span>By Kiran Growth School team</span><span>·</span><time datetime="{p["date"]}">{p["date_obj"]:%d %B %Y}</time><span>·</span><span>{p["mins"]} min read</span></div></div></section>
-<section class="sec" style="padding-top:50px"><div class="wrap post-layout"><article class="prose">{tldr}{html_body}{faq_html}
+<section class="sec" style="padding-top:50px"><div class="wrap post-layout"><article class="prose"><figure class="pic" style="--c:var(--sun);aspect-ratio:16/9;margin:0 0 30px">{img(post_img(p), 1200, eager=True)}</figure>{tldr}{html_body}{faq_html}
 <div class="inline-cta"><h3>Need more leads this month?</h3><p>Message us your business, city and budget. We reply with a practical plan, free.</p>{wa_btn("Hi Kiran Growth School, I want more leads for my business.", "WhatsApp +91 93998 51765", "b-sun")}</div></article>
 <aside class="side"><div class="card"><small>Work with us</small><h3>{svc_link[1]}</h3><p>Meta Ads, Google Ads, websites, AI videos and automation, built for your industry.</p><a class="more" href="{svc_link[0]}">Learn more →</a></div>
 <div class="card"><small>Related</small>{"".join(f'<a href="/blog/{q["slug"]}/" style="font-weight:700;text-decoration:none;display:block;padding:8px 0;border-bottom:1px dashed #cfc6b2">{E(q["title"])}</a>' for q in rel)}</div>
@@ -610,6 +706,7 @@ def build_about():
 <div class="bio" style="margin-top:22px"><p>{s["founder"]} has 7+ years of experience in digital marketing and education. Kiran Growth School started by teaching practical marketing and grew into an agency that runs campaigns for businesses.</p>
 <p>Today the agency focuses on performance marketing: every campaign is planned around cost per qualified lead, and every enquiry is routed to WhatsApp so it can be answered fast. Our academy still runs live courses, taught from the same playbooks.</p></div>
 <div style="margin-top:26px"><a class="btn b-white" href="{s["linkedin"]}" target="_blank" rel="noopener">{s["founder"]} on LinkedIn</a></div></div></div></section>
+<section class="sec" style="padding-bottom:0"><div class="wrap"><div class="head"><div>{tag("Inside Kiran Growth School", "var(--pink)")}<h2>Teaching and doing, <span class="hl hp">every week</span></h2></div></div>{GALLERY}</div></section>
 <section class="sec"><div class="wrap"><div class="head"><div>{tag("How we work", "var(--blue)")}<h2>What you can expect</h2></div></div><div class="grid3">
 <div class="card"><h3>Your accounts, your data</h3><p>We work inside your own Meta, Google and website accounts. You keep everything.</p></div>
 <div class="card"><h3>Weekly, honest reporting</h3><p>Cost per lead, lead quality and what changed, in plain language. No vanity metrics.</p></div>
