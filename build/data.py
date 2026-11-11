@@ -11,6 +11,10 @@ SITE = {
     "linkedin": "https://www.linkedin.com/in/sitanshu-tripathii/",
     "hours": "Mon to Sat · 10 AM to 7 PM",
     "tagline": "Performance marketing agency for solar and real estate businesses",
+    # Paste verification codes here (content="..." value only), then rebuild.
+    "google_verification": "",
+    "bing_verification": "",
+    "indexnow_key": "c54e03725d3c6db5a08a62b10d1b4d3b",
 }
 
 # ---------------------------------------------------------------- services
@@ -123,6 +127,28 @@ SERVICES = [
             ("Is an AI avatar of me safe?", "We only create a personal avatar with your written consent, and you approve every script and video before it is published."),
             ("Do avatar videos work for ads?", "They work well for explainers, FAQs and updates. For the main ad creatives we test them against real footage and UGC and keep what converts."),
             ("Which languages can the avatar speak?", "Hindi and English are standard; other Indian languages are possible depending on the tool and voice quality."),
+        ],
+    },
+    {
+        "slug": "social-media-marketing", "icon": "insta", "bg": "#ffe9df", "c": "var(--coral)",
+        "name": "Social Media Marketing", "short": "Instagram, Facebook, LinkedIn & YouTube",
+        "title": "Social Media Marketing Agency | Instagram, Facebook, LinkedIn & YouTube Management",
+        "desc": "Social media marketing agency in Delhi NCR and Madhya Pradesh: content calendars, reels, carousels, community management and paid social for local businesses, solar companies and real estate brands.",
+        "h1": "Social media that builds <span class=\"hl hc\">trust</span> before the first call",
+        "lead": "Buyers check your Instagram and Facebook before they enquire. We plan, create and manage content that shows real work, answers real questions and feeds your ad campaigns with proof.",
+        "chips": ["Instagram", "Facebook", "LinkedIn", "YouTube Shorts", "Reels"],
+        "points": [
+            ("Monthly content calendar", "A plan built around your offers, seasons and sales goals, approved before anything is posted."),
+            ("Reels and short video", "Hook-first reels from your real footage, plus AI-assisted edits for volume."),
+            ("Carousels that educate", "Subsidy explainers, project comparisons, buyer checklists and FAQs that people save and share."),
+            ("Community management", "Replies to comments and DMs, routed to WhatsApp so enquiries never get lost."),
+            ("Profile optimisation", "Bio, highlights, links and Google Business Profile aligned so people can contact you in one tap."),
+            ("Organic + paid together", "Your best organic posts become ads, and ad learnings shape your content."),
+        ],
+        "faq": [
+            ("How many posts a month do you create?", "Plans usually range from 12 to 30 pieces a month, mixing reels, carousels and stories. We recommend the mix based on your goals and budget."),
+            ("Do you shoot videos at our location?", "We work from footage you or a local shooter capture, and add AI-assisted editing. On-site shoots can be arranged in some cities."),
+            ("Will social media alone bring leads?", "Organic social builds trust and supports conversions, but for predictable lead volume we pair it with Meta Ads and Google Ads."),
         ],
     },
     {
@@ -249,6 +275,15 @@ CITIES = [
         "re_angle": "Satna demand is led by plotted colonies, independent homes and commercial space for local businesses. Simple, trust-led Hindi creatives and quick WhatsApp replies convert best.",
         "intro": "Satna businesses need marketing that is simple, local and measurable. We keep campaigns lean and focused on calls and WhatsApp chats.",
     },
+]
+
+OTHER_INDUSTRIES = [
+    ("Clinics & healthcare", "Appointment campaigns and local SEO for clinics, physiotherapy and dental practices."),
+    ("Education & coaching", "Admission and enquiry campaigns for coaching institutes, schools and edtech."),
+    ("D2C & e-commerce", "Meta and Google Shopping campaigns, creatives and tracking for online brands."),
+    ("Restaurants, cafes & bakeries", "Reels, local reach and order campaigns for food businesses."),
+    ("Interior designers & architects", "Portfolio-led ads and websites that bring high-ticket consultations."),
+    ("Local services & B2B", "Lead generation for manufacturers, consultants, travel, events and home services."),
 ]
 
 # ---------------------------------------------------------------- courses (secondary)
