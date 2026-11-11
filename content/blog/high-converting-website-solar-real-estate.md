@@ -75,4 +75,4 @@ AI assistants increasingly answer questions like "best solar installer in Bhopal
 
 For local searches, the Maps listing often gets more clicks than the website. Complete every field, add photos weekly, reply to reviews and link to the right city page.
 
-Need a website built this way? See [website design](/services/website-design/), or ask us on WhatsApp for a free audit of your current site.
+Need a website built this way? See [website design](/services/website-development/), or ask us on WhatsApp for a free audit of your current site.
