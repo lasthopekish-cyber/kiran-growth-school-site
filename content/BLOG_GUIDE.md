@@ -32,7 +32,7 @@ faq: Question three? || Short, direct answer.
 4. **Never say "free solar panels".** Say "subsidy up to ₹78,000" (or the current cap).
 5. **Unique topic.** Before writing, list `content/blog/` and do not repeat a topic or slug that already exists. A new angle on the same theme is fine (different city, different buyer, different channel).
 6. **Length:** 900-1,400 words. Short paragraphs, at least one table or checklist, a TL;DR, and 3 FAQs.
-7. **Internal links (3+):** link to one service page (`/services/meta-ads/`, `/services/google-ads/`, `/services/website-design/`, `/services/ai-video-production/`, `/services/ai-avatar-videos/`, `/services/ai-automation/`), one industry page (`/solar-marketing-agency/` or `/real-estate-marketing-agency/`), one city page (`/locations/delhi/`, `/locations/delhi-ncr/`, `/locations/gurugram/`, `/locations/ghaziabad/`, `/locations/bhopal/`, `/locations/rewa/`, `/locations/satna/`) and, where relevant, an existing blog post.
+7. **Internal links (3+):** link to one service page (`/services/meta-ads/`, `/services/google-ads/`, `/services/website-development/`, `/services/ai-video-production/`, `/services/ai-avatar-videos/`, `/services/ai-automation/`), one industry page (`/solar-marketing-agency/` or `/real-estate-marketing-agency/`), one city page (`/locations/delhi/`, `/locations/delhi-ncr/`, `/locations/gurugram/`, `/locations/ghaziabad/`, `/locations/bhopal/`, `/locations/rewa/`, `/locations/satna/`) and, where relevant, an existing blog post.
 8. **End with a soft call to action** to WhatsApp +91 93998 51765.
 9. Indian English, rupee symbol (₹), lakh/crore where natural.
 

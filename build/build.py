@@ -119,14 +119,13 @@ def wa_btn(msg, label, cls="b-wa", extra=""):
     return f'<a class="btn {cls}" href="{E(wa(msg))}" target="_blank" rel="noopener"{extra}>{I["wa"]}{label}</a>'
 
 # ------------------------------------------------------------------ layout
-NAV = [("/services/", "Services"), ("/solar-marketing-agency/", "Solar"), ("/real-estate-marketing-agency/", "Real Estate"),
-       ("/locations/", "Locations"), ("/blog/", "Blog")]
+NAV = [("/services/", "Services"), ("/industries/", "Industries"), ("/locations/", "Locations"), ("/blog/", "Blog"), ("/about/", "About")]
 
 def header(active):
     links = "".join(f'<a href="{h}"{" class=\"on\"" if active == h else ""}>{t}</a>' for h, t in NAV)
     links += f'<a class="course-tab{" on" if active == "/courses/" else ""}" href="/courses/">Courses</a>'
     mob = "".join(f'<a href="{h}">{t}</a>' for h, t in NAV) + '<a href="/courses/">Courses</a><a href="/about/">About</a><a href="/contact/">Contact</a>' + f'<a href="tel:{SITE["phone_e164"]}">Call {SITE["phone"]}</a>'
-    tick_items = [("#ffc626", "Performance marketing for solar & real estate"), ("#1fd39b", "Meta Ads · Google Ads · Websites"),
+    tick_items = [("#ffc626", "Digital marketing agency · Pan India"), ("#1fd39b", "Website live in 48 hours"), ("#ffc626", "Meta Ads · Google Ads · Social media management"), ("#1fd39b", "Specialists in solar & real estate"),
                   ("#ff6fb5", "AI videos · AI avatars · AI automation"), ("#5ec8ff", "Delhi NCR · Gurugram · Ghaziabad · Bhopal · Rewa · Satna"),
                   ("#ff5a36", f"WhatsApp {SITE['phone']}")]
     tick = "".join(f'<span><span class="dot" style="display:inline-block;width:10px;height:10px;border-radius:50%;background:{c}"></span>{E(t)}</span>' for c, t in tick_items) * 2
@@ -151,7 +150,7 @@ def footer():
     <div class="fcta"><h2>More leads for your solar or real estate business? Let's talk.</h2>{wa_btn("Hi Kiran Growth School, I want more leads for my business.", SITE["phone"])}</div>
     <div class="fcols">
       <div><a class="brand" href="/">{I["brand"]}<div><b>Kiran Growth School</b><small>PERFORMANCE MARKETING AGENCY</small></div></a>
-        <p>Performance marketing agency for solar companies and real estate businesses: Meta Ads, Google Ads, websites, AI videos, AI avatar videos and AI automation. Founded by {SITE["founder"]}.</p>
+        <p>Digital and performance marketing agency for all types of businesses across India, with special expertise in solar and real estate: Meta Ads, Google Ads, social media management, websites in 48 hours, AI videos and AI automation. Founded by {SITE["founder"]}.</p>
         <div class="soc"><a href="{SITE["linkedin"]}" target="_blank" rel="noopener" style="color:var(--sky);display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:12px;border:2px solid #4a4462;font-weight:800;font-size:.86rem;text-decoration:none">{I["linkedin"]}LinkedIn</a></div></div>
       <div style="--c:var(--sun)"><h4>Services</h4><ul>{svc}</ul></div>
       <div style="--c:var(--mint)"><h4>Company</h4><ul><li><a href="/about/">About us</a></li><li><a href="/contact/">Contact</a></li><li><a href="/solar-marketing-agency/">Solar marketing</a></li><li><a href="/real-estate-marketing-agency/">Real estate marketing</a></li><li><a href="/blog/">Blog</a></li><li><a href="/courses/">Courses</a></li></ul></div>
@@ -168,11 +167,11 @@ def org_schema():
     return {
         "@type": ["Organization", "ProfessionalService"], "@id": ORG_ID, "name": SITE["name"], "url": U + "/",
         "logo": U + "/assets/img/logo.png", "image": U + "/assets/img/og-default.jpg",
-        "description": "Performance marketing agency for solar companies and real estate businesses: Meta Ads, Google Ads, website design, AI videos, AI avatar videos and AI automation.",
+        "description": "Pan-India digital and performance marketing agency for all types of businesses, specialising in solar and real estate: Meta Ads, Google Ads, social media management, website development in 48 hours, AI videos, AI avatar videos and AI automation.",
         "telephone": SITE["phone_e164"], "email": SITE["email"], "priceRange": "₹₹",
         "founder": {"@type": "Person", "name": SITE["founder"], "sameAs": [SITE["linkedin"]]},
         "areaServed": [{"@type": "City", "name": c["name"]} for c in CITIES if c["slug"] != "delhi-ncr"] + [{"@type": "Place", "name": "Delhi NCR"}, {"@type": "Country", "name": "India"}],
-        "knowsAbout": ["Performance marketing", "Meta Ads", "Google Ads", "Solar lead generation", "PM Surya Ghar Muft Bijli Yojana", "Real estate marketing", "RERA-compliant advertising", "Website design", "AI video production", "AI avatar videos", "AI automation", "WhatsApp automation"],
+        "knowsAbout": ["Digital marketing", "Performance marketing", "Social media management", "Website development", "Lead generation", "Meta Ads", "Google Ads", "Solar lead generation", "PM Surya Ghar Muft Bijli Yojana", "Real estate marketing", "RERA-compliant advertising", "Website design", "AI video production", "AI avatar videos", "AI automation", "WhatsApp automation"],
         "contactPoint": {"@type": "ContactPoint", "telephone": SITE["phone_e164"], "contactType": "sales", "availableLanguage": ["English", "Hindi"]},
         "sameAs": [SITE["linkedin"]],
         "openingHours": "Mo-Sa 10:00-19:00",
@@ -256,7 +255,7 @@ def faq_block(faq, title='Questions? <span class="hl hy">Answered.</span>'):
 <div class="faq">{items}</div></div></section>'''
 
 def contact_block(interest_default=None):
-    opts = ["Meta Ads", "Google Ads", "Website design", "Social media marketing", "AI videos", "AI avatar videos", "AI automation", "Complete performance marketing", "Courses (Meta Ads / AI)"]
+    opts = ["Meta Ads", "Google Ads", "Website in 48 hours", "Social media management", "AI videos", "AI avatar videos", "AI automation", "Complete performance marketing", "Courses (Meta Ads / AI)"]
     opt_html = "".join(f'<option{" selected" if o == interest_default else ""}>{E(o)}</option>' for o in opts)
     btypes = ["Solar company / installer", "Real estate builder", "Real estate broker / channel partner", "Other business", "Student / learner"]
     bt_html = "".join(f"<option>{E(b)}</option>" for b in btypes)
@@ -382,17 +381,17 @@ def build_home(posts):
     body = f'''<section class="hero" id="top">
   <div class="wrap">
     <div>
-      {tag("Performance marketing agency · Delhi NCR & MP", "var(--mint)")}
-      <h1>More <span class="hl hy">leads</span> for <span class="hl hb">solar</span> &amp; <span class="hl hc">real estate</span> businesses.</h1>
-      <p class="lead">Kiran Growth School is a performance marketing agency for solar installers, builders, brokers and channel partners in Delhi, Gurugram, Ghaziabad, Bhopal, Rewa and Satna. Meta Ads, Google Ads, high-converting websites, AI videos, AI avatar videos and AI automation, all tracked to real enquiries on WhatsApp.</p>
+      {tag("Digital marketing agency · Pan India", "var(--mint)")}
+      <h1>More <span class="hl hy">leads</span> &amp; <span class="hl hb">sales</span> for <span class="hl hc">every</span> business.</h1>
+      <p class="lead">Kiran Growth School is a digital and performance marketing agency working with all types of businesses across India: Meta Ads, Google Ads, social media management, websites live in 48 hours, AI videos, AI avatar videos and AI automation. Specialists in solar and real estate, with a strong local team focus in Delhi NCR, Gurugram, Ghaziabad, Bhopal, Rewa and Satna.</p>
       <div class="ctas">
         {wa_btn("Hi, I'd like a free growth plan for my business.", "Get a free growth plan")}
         <a class="btn b-sun" href="/services/">See all services</a>
       </div>
       <div class="mini">
-        <div><i style="background:var(--sun)">{I["sun"]}</i><div><b>Solar</b><br><span>PM Surya Ghar leads</span></div></div>
-        <div><i style="background:var(--mint)">{I["building"]}</i><div><b>Real estate</b><br><span>Site-visit focused</span></div></div>
-        <div><i style="background:var(--pink)">{I["bolt"]}</i><div><b>AI-first</b><br><span>Videos & automation</span></div></div>
+        <div><i style="background:var(--sun)">{I["pin"]}</i><div><b>Pan India</b><br><span>All businesses</span></div></div>
+        <div><i style="background:var(--mint)">{I["web"]}</i><div><b>48 hrs</b><br><span>Website live</span></div></div>
+        <div><i style="background:var(--pink)">{I["sun"]}</i><div><b>Solar & RE</b><br><span>Specialists</span></div></div>
       </div>
     </div>
     <div class="photo" id="photo">
@@ -400,7 +399,7 @@ def build_home(posts):
         <div class="pframe"><img src="/assets/img/sitanshu-hero.webp" alt="Sitanshu Tripathi, founder of Kiran Growth School performance marketing agency" width="900" height="878" fetchpriority="high"></div>
         <div class="sticker st1"><small>Founder</small><b>{s["founder"]}</b></div>
         <div class="sticker st2"><small>All enquiries on</small><b>WhatsApp</b></div>
-        <div class="sticker st3"><b>Meta · Google · AI</b></div>
+        <div class="sticker st3"><b>Ads · Social · Web · AI</b></div>
       </div>
     </div>
   </div>
@@ -414,7 +413,7 @@ def build_home(posts):
 
 <section class="sec" id="industries">
   <div class="wrap">
-    <div class="head"><div>{tag("Who we grow", "var(--blue)")}<h2>Built for <span class="hl hm">high-ticket</span> local businesses</h2></div><p>Solar and real estate buyers research for weeks, compare online and decide on trust and speed. Our whole system is designed for that buying journey.</p></div>
+    <div class="head"><div>{tag("Our specialities", "var(--blue)")}<h2>Experts in <span class="hl hm">solar</span> &amp; <span class="hl hy">real estate</span></h2></div><p>We market every kind of business, and we go deepest in two high-ticket industries where buyers research for weeks and decide on trust and speed.</p></div>
     {industry_cards()}
   </div>
 </section>
@@ -430,8 +429,8 @@ def build_home(posts):
 
 <section class="nums" aria-label="How we work"><div class="wrap">
   <div class="n"><b>7</b><span>Core services under one roof</span></div>
-  <div class="n"><b>7</b><span>Focus cities across Delhi NCR & MP</span></div>
-  <div class="n"><b>24×7</b><span>Instant WhatsApp replies with automation</span></div>
+  <div class="n"><b>48 hrs</b><span>To launch your business website</span></div>
+  <div class="n"><b>Pan India</b><span>Clients across India, local focus in NCR & MP</span></div>
   <div class="n"><b>Weekly</b><span>Reports on leads and cost per lead</span></div>
 </div></section>
 
@@ -484,14 +483,14 @@ def build_home(posts):
 {faq_block(HOME_FAQ)}
 {cta_band('Your next customer is searching <span class="hl hy">right now</span>', "Tell us what you sell and where. We'll show you how to reach the buyers already looking for it.", "Hi Kiran Growth School, I'd like to get started.")}
 {contact_block("Complete performance marketing")}'''
-    page("/", "Performance & Digital Marketing Agency in Delhi NCR, Gurugram & Bhopal | Kiran Growth School",
-         "Performance and digital marketing agency in Delhi NCR, Gurugram, Ghaziabad, Bhopal, Rewa and Satna, specialising in solar and real estate. Meta Ads, Google Ads, websites, social media, AI videos and AI automation. WhatsApp +91 93998 51765.",
+    page("/", "Digital & Performance Marketing Agency in India | Delhi NCR | Kiran Growth School",
+         "Pan-India digital and performance marketing agency for every business: Meta Ads, Google Ads, social media management, websites live in 48 hours, AI videos and automation. Solar & real estate specialists in Delhi NCR. WhatsApp +91 93998 51765.",
          body, active="/", schema=[faq_schema(HOME_FAQ)])
 
 def build_services():
     body = f'''<section class="phero"><div class="wrap">{crumbs_html([("/", "Home"), ("/services/", "Services")])}
 <h1>Performance marketing <span class="hl hc">services</span></h1>
-<p class="lead">Seven services, one goal: more qualified enquiries for your solar or real estate business, at a cost per lead that makes sense. Pick one, or let us run the full system.</p>
+<p class="lead">Seven services, one goal: more qualified enquiries for your business, at a cost per lead that makes sense. Pick one, or let us run the full system.</p>
 <div class="ctas">{wa_btn("Hi, I want to discuss your services.", "Discuss on WhatsApp")}</div></div></section>
 <section class="sec"><div class="wrap">{svc_cards()}</div></section>
 {steps_block()}
@@ -509,13 +508,13 @@ def build_services():
 <h1>{s["h1"]}</h1><p class="lead">{E(s["lead"])}</p>
 <div class="chips" style="margin-top:18px">{chips}</div>
 <div class="ctas">{wa_btn(f"Hi, I'm interested in {s['name']} for my business.", f"Get a {E(s['name'])} plan")}<a class="btn b-white" href="#how">How we do it</a></div></div></section>
-<section class="sec" id="how"><div class="wrap"><div class="head"><div>{tag("How we do it", s["c"])}<h2>What's included</h2></div><p>Built for solar installers, builders, brokers and channel partners. Available in Delhi NCR, Gurugram, Ghaziabad, Bhopal, Rewa, Satna and across India.</p></div>
+<section class="sec" id="how"><div class="wrap"><div class="head"><div>{tag("How we do it", s["c"])}<h2>What's included</h2></div><p>For every type of business across India, with extra depth for solar installers, builders, brokers and channel partners in Delhi NCR, Gurugram, Ghaziabad, Bhopal, Rewa and Satna.</p></div>
 <div class="grid3">{pts}</div></div></section>
 <section class="sec" style="padding-top:0"><div class="wrap"><div class="head"><div>{tag("Industries", "var(--blue)")}<h2>{E(s["name"])} for <span class="hl hy">solar</span> &amp; <span class="hl hm">real estate</span></h2></div></div>{industry_cards()}</div></section>
 <section class="sec" style="padding-top:0"><div class="wrap"><div class="head"><div>{tag("Cities", "var(--pink)")}<h2>{E(s["name"])} by city</h2></div></div>{city_links()}</div></section>
 {faq_block(s["faq"])}
 <section class="sec" style="padding-top:0"><div class="wrap"><div class="head"><div>{tag("Other services", "var(--mint)")}<h2>Works best together</h2></div></div><div class="grid3">{others}</div></div></section>
-{contact_block({"meta-ads": "Meta Ads", "google-ads": "Google Ads", "website-design": "Website design", "ai-video-production": "AI videos", "ai-avatar-videos": "AI avatar videos", "social-media-marketing": "Social media marketing", "ai-automation": "AI automation"}[s["slug"]])}'''
+{contact_block({"meta-ads": "Meta Ads", "google-ads": "Google Ads", "website-development": "Website in 48 hours", "ai-video-production": "AI videos", "ai-avatar-videos": "AI avatar videos", "social-media-management": "Social media management", "ai-automation": "AI automation"}[s["slug"]])}'''
         svc_ld = {"@type": "Service", "name": s["name"], "serviceType": s["name"], "description": s["desc"], "provider": {"@id": ORG_ID},
                   "areaServed": [c["name"] for c in CITIES], "audience": {"@type": "BusinessAudience", "audienceType": "Solar companies, real estate builders, brokers and channel partners"}}
         page(path, s["title"] + " | Kiran Growth School", s["desc"], body, active="/services/", schema=[svc_ld, faq_schema(s["faq"]), crumbs_schema(cr)])
@@ -559,7 +558,7 @@ def build_industries(posts):
 {faq_block(faq)}
 {contact_block("Complete performance marketing")}'''
         sld = {"@type": "Service", "name": f"{ind['name']} marketing", "serviceType": f"{ind['name']} lead generation and performance marketing", "description": ind["desc"], "provider": {"@id": ORG_ID}, "areaServed": [c["name"] for c in CITIES]}
-        page(path, ind["title"] + " | Kiran Growth School", ind["desc"], body, active=path, schema=[sld, faq_schema(faq), crumbs_schema(cr)])
+        page(path, ind["title"] + " | Kiran Growth School", ind["desc"], body, active="/industries/", schema=[sld, faq_schema(faq), crumbs_schema(cr)])
 
 def build_locations(posts):
     cr = [("/", "Home"), ("/locations/", "Locations")]
@@ -606,7 +605,7 @@ def build_locations(posts):
 {contact_block("Complete performance marketing")}'''
         ld = {"@type": "Service", "name": f"Digital and performance marketing agency in {n}", "serviceType": "Performance marketing for solar and real estate", "provider": {"@id": ORG_ID},
               "areaServed": {"@type": "City" if c["slug"] != "delhi-ncr" else "Place", "name": n}, "description": f"Meta Ads, Google Ads, website design, AI videos and AI automation for solar companies and real estate businesses in {n}."}
-        page(path, f"Digital Marketing Agency in {n} | Performance Marketing, Meta & Google Ads | Kiran Growth School",
+        page(path, f"Digital Marketing Agency in {n} | Solar & Real Estate Marketing | Kiran Growth School",
              f"Digital and performance marketing agency in {n}: Meta Ads, Google Ads, website design, social media, AI videos and WhatsApp automation. Specialists in solar and real estate leads. WhatsApp +91 93998 51765.",
              body, active="/locations/", schema=[ld, faq_schema(faq), crumbs_schema(crc)])
 
@@ -735,6 +734,20 @@ def build_contact():
          "Contact Kiran Growth School, a digital and performance marketing agency. WhatsApp or call +91 93998 51765, email founder@kirangrowthschool.com. Mon to Sat, 10 AM to 7 PM.",
          body, schema=[ld, crumbs_schema(cr)])
 
+def build_industries_index():
+    cr = [("/", "Home"), ("/industries/", "Industries")]
+    cards = "".join(f'<div class="card"><h3>{E(t)}</h3><p>{E(d)}</p></div>' for t, d in OTHER_INDUSTRIES)
+    body = f'''<section class="phero"><div class="wrap">{crumbs_html(cr)}<h1>Marketing for <span class="hl hy">every industry</span></h1>
+<p class="lead">Kiran Growth School works with all types of businesses across India. The same system (ads that target real buyers, websites that convert, social media that builds trust and automation that replies instantly) works for clinics, coaching institutes, D2C brands, restaurants, B2B companies and more. Solar and real estate are our deepest specialities.</p>
+<div class="ctas">{wa_btn("Hi, I want to grow my business. My industry is: ", "Tell us your industry")}</div></div></section>
+<section class="sec"><div class="wrap"><div class="head"><div>{tag("Specialities", "var(--blue)")}<h2>Where we go <span class="hl hm">deepest</span></h2></div></div>{industry_cards()}</div></section>
+<section class="sec" style="padding-top:0"><div class="wrap"><div class="head"><div>{tag("All industries", "var(--sky)")}<h2>Businesses we market</h2></div><p>Don't see yours? We probably still fit. Message us on WhatsApp.</p></div><div class="grid3">{cards}</div></div></section>
+<section class="sec" style="padding-top:0"><div class="wrap"><div class="head"><div>{tag("Services", "var(--coral)")}<h2>What we do for every industry</h2></div></div>{svc_cards()}</div></section>
+{contact_block()}'''
+    page("/industries/", "Industries We Serve | Digital Marketing for Every Business in India | Kiran Growth School",
+         "Digital marketing for all types of businesses in India: clinics, education, D2C, restaurants, B2B, startups, retail and more, with special expertise in solar and real estate.",
+         body, active="/industries/", schema=[crumbs_schema(cr)])
+
 def build_404():
     body = f'<section class="phero"><div class="wrap"><h1>Page not <span class="hl hc">found</span></h1><p class="lead">The page you were looking for has moved. Try the links below or message us on WhatsApp.</p><div class="ctas"><a class="btn b-sun" href="/">Home</a><a class="btn b-white" href="/services/">Services</a><a class="btn b-white" href="/blog/">Blog</a>{wa_btn("Hi, I could not find a page on your website.", "WhatsApp us")}</div></div></section>'
     page("/404.html", "Page not found | Kiran Growth School", "Page not found.", body)
@@ -751,14 +764,15 @@ def build_meta_files(posts):
     robots = "User-agent: *\nAllow: /\n\n" + "".join(f"User-agent: {b}\nAllow: /\n\n" for b in bots) + f"Sitemap: {U}/sitemap.xml\n"
     (ROOT / "robots.txt").write_text(robots, encoding="utf-8")
     svc = "\n".join(f"- [{s['name']}]({U}/services/{s['slug']}/): {s['desc']}" for s in SERVICES)
-    loc = "\n".join(f"- [Performance marketing agency in {c['name']}]({U}/locations/{c['slug']}/): solar and real estate marketing in {c['name']} ({c['state']}). DISCOM: {c['discom']}. RERA: {c['rera']}." for c in CITIES)
+    loc = "\n".join(f"- [Digital marketing agency in {c['name']}]({U}/locations/{c['slug']}/): digital marketing for all businesses, plus solar and real estate marketing in {c['name']} ({c['state']}). DISCOM: {c['discom']}. RERA: {c['rera']}." for c in CITIES)
     blog = "\n".join(f"- [{p['title']}]({U}/blog/{p['slug']}/): {p['description']}" for p in posts)
     llms = f"""# Kiran Growth School
 
-> Kiran Growth School is a performance marketing agency in India for solar companies and real estate businesses. Services: Meta Ads (Facebook & Instagram), Google Ads, website design, AI video production, AI avatar videos and AI automation (WhatsApp bots, CRM and follow-up). Serves Delhi, Delhi NCR (Gurugram, Ghaziabad, Noida, Faridabad) and Madhya Pradesh (Bhopal, Rewa, Satna). Founded by {SITE['founder']}. All enquiries: WhatsApp {SITE['phone']} (https://wa.me/{SITE['wa']}).
+> Kiran Growth School is a pan-India digital and performance marketing agency for all types of businesses, with special expertise in solar companies and real estate. Services: Meta Ads (Facebook & Instagram), Google Ads, social media management, website development (live in 48 hours), AI video production, AI avatar videos and AI automation (WhatsApp bots, CRM and follow-up). Works with clients across India, with a local focus in Delhi, Delhi NCR (Gurugram, Ghaziabad, Noida, Faridabad) and Madhya Pradesh (Bhopal, Rewa, Satna). Founded by {SITE['founder']}. All enquiries: WhatsApp {SITE['phone']} (https://wa.me/{SITE['wa']}).
 
 Key facts:
-- Primary business: performance marketing agency (lead generation for solar installers/EPCs, real estate builders, brokers and channel partners).
+- Primary business: digital and performance marketing agency for all types of businesses across India (clinics, education, D2C, restaurants, B2B, startups, local services), specialising in solar installers/EPCs and real estate builders, brokers and channel partners.
+- Website development: standard business websites go live within 48 hours of receiving content.
 - Secondary: an academy with two courses, Meta Ads & Digital Marketing (₹25,000) and AI Tools & Website Design (₹25,000).
 - Contact: WhatsApp / call {SITE['phone']}, email {SITE['email']}, {SITE['hours']}.
 - Founder: {SITE['founder']} ({SITE['linkedin']}).
@@ -789,6 +803,7 @@ def main():
     build_industries(posts)
     build_locations(posts)
     build_courses()
+    build_industries_index()
     build_about()
     build_contact()
     build_blog(posts)

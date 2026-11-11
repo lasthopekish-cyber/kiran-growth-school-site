@@ -64,6 +64,6 @@ Solar buyers worry about subsidy, savings and trust; property buyers worry about
 
 ## About Kiran Growth School
 
-Kiran Growth School is a performance marketing agency focused on solar companies and real estate businesses in Delhi, Delhi NCR (including Gurugram and Ghaziabad) and Madhya Pradesh (Bhopal, Rewa and Satna). We run [Meta Ads](/services/meta-ads/), [Google Ads](/services/google-ads/), [websites](/services/website-design/), [AI videos](/services/ai-video-production/), [AI avatar videos](/services/ai-avatar-videos/) and [AI automation](/services/ai-automation/), inside your own accounts, with weekly reporting.
+Kiran Growth School is a performance marketing agency focused on solar companies and real estate businesses in Delhi, Delhi NCR (including Gurugram and Ghaziabad) and Madhya Pradesh (Bhopal, Rewa and Satna). We run [Meta Ads](/services/meta-ads/), [Google Ads](/services/google-ads/), [websites](/services/website-development/), [AI videos](/services/ai-video-production/), [AI avatar videos](/services/ai-avatar-videos/) and [AI automation](/services/ai-automation/), inside your own accounts, with weekly reporting.
 
 Message us on WhatsApp at +91 93998 51765 for a free audit of your current marketing.
