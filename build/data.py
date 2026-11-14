@@ -12,7 +12,7 @@ SITE = {
     "hours": "Mon to Sat · 10 AM to 7 PM",
     "tagline": "Digital & performance marketing agency in India",
     # Paste verification codes here (content="..." value only), then rebuild.
-    "google_verification": "",
+    "google_verification": "vGmAw9gELNmhLJ25PUK6HnG5OBMFB9SU_Ui6ZSW4lQs",
     "bing_verification": "",
     "indexnow_key": "c54e03725d3c6db5a08a62b10d1b4d3b",
 }
