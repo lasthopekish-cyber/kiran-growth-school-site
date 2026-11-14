@@ -12,7 +12,7 @@ SITE = {
     "hours": "Mon to Sat · 10 AM to 7 PM",
     "tagline": "Digital & performance marketing agency in India",
     # Paste verification codes here (content="..." value only), then rebuild.
-    "google_verification": "vGmAw9gELNmhLJ25PUK6HnG5OBMFB9SU_Ui6ZSW4lQs",
+    "google_verification": "vGmAw9gELNmhLJ25PUK6HnG5OBMFB9SU_Ui6ZSW4lQs,2CGIJKKpqP-2e4KhaOILEgiBuxcYybdi_2KuOP0VOq0",  # comma-separated: Kish + Sitanshu
     "bing_verification": "174B3794F3A8B3BA10528A5FA6B7A1D1",
     "indexnow_key": "c54e03725d3c6db5a08a62b10d1b4d3b",
 }

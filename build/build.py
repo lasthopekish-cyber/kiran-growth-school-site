@@ -195,7 +195,8 @@ def page(path, title, desc, body, active=None, schema=None, og_type="website", o
     ld = json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False)
     verif = ""
     if path == "/" and SITE.get("google_verification"):
-        verif += "\n" + f'<meta name="google-site-verification" content="{E(SITE["google_verification"])}">'
+        for code in SITE["google_verification"].split(","):
+            verif += "\n" + f'<meta name="google-site-verification" content="{E(code.strip())}">'
     if path == "/" and SITE.get("bing_verification"):
         verif += "\n" + f'<meta name="msvalidate.01" content="{E(SITE["bing_verification"])}">'
     full = f'''<!doctype html>
