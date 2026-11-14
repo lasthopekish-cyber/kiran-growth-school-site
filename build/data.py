@@ -17,6 +17,14 @@ SITE = {
     "indexnow_key": "c54e03725d3c6db5a08a62b10d1b4d3b",
 }
 
+# Offices (keep identical to Google Business Profile and directory listings)
+OFFICES = [
+    {"city_slug": "ghaziabad", "label": "Ghaziabad office (Delhi NCR)", "street": "A-68, Parsvnath Paradise, Mohan Nagar", "locality": "Ghaziabad", "region": "Uttar Pradesh", "postal": "201014",
+     "maps": "https://www.google.com/maps/search/?api=1&query=A-68+Parsvnath+Paradise+Mohan+Nagar+Ghaziabad+201014"},
+    {"city_slug": "rewa", "label": "Rewa office (Madhya Pradesh)", "street": "Near Shiv Mandir, Shilpi Plaza", "locality": "Rewa", "region": "Madhya Pradesh", "postal": "486001",
+     "maps": "https://www.google.com/maps/search/?api=1&query=Shilpi+Plaza+Rewa+486001"},
+]
+
 # ---------------------------------------------------------------- services
 SERVICES = [
     {

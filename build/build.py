@@ -11,7 +11,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "build"))
-from data import SITE, SERVICES, INDUSTRIES, CITIES, COURSES, HOME_FAQ, OTHER_INDUSTRIES, WEB_ANGLE, NICHES  # noqa: E402
+from data import SITE, SERVICES, INDUSTRIES, CITIES, COURSES, HOME_FAQ, OTHER_INDUSTRIES, WEB_ANGLE, NICHES, OFFICES  # noqa: E402
 
 try:
     import markdown  # pip install markdown
@@ -155,7 +155,7 @@ def footer():
       <div style="--c:var(--sun)"><h4>Services</h4><ul>{svc}</ul></div>
       <div style="--c:var(--mint)"><h4>Company</h4><ul><li><a href="/about/">About us</a></li><li><a href="/contact/">Contact</a></li><li><a href="/solar-marketing-agency/">Solar marketing</a></li><li><a href="/real-estate-marketing-agency/">Real estate marketing</a></li><li><a href="/education-marketing-agency/">Education marketing</a></li><li><a href="/sweets-bakery-marketing-agency/">Sweets &amp; bakery marketing</a></li><li><a href="/blog/">Blog</a></li><li><a href="/courses/">Courses</a></li></ul></div>
       <div style="--c:var(--pink)"><h4>Locations</h4><ul>{loc}</ul></div>
-      <div style="--c:var(--sky)"><h4>Contact</h4><ul><li><a href="{E(wa("Hi Kiran Growth School, I have an enquiry."))}" target="_blank" rel="noopener">WhatsApp {SITE["phone"]}</a></li><li><a href="tel:{SITE["phone_e164"]}">Call {SITE["phone"]}</a></li><li style="color:#c9c4d8;font-weight:600;font-size:.95rem;overflow-wrap:anywhere">{SITE["email"]}</li><li style="color:#c9c4d8;font-weight:600;font-size:.95rem">{SITE["hours"]}</li></ul></div>
+      <div style="--c:var(--sky)"><h4>Contact</h4><ul><li><a href="{E(wa("Hi Kiran Growth School, I have an enquiry."))}" target="_blank" rel="noopener">WhatsApp {SITE["phone"]}</a></li><li><a href="tel:{SITE["phone_e164"]}">Call {SITE["phone"]}</a></li><li style="color:#c9c4d8;font-weight:600;font-size:.95rem;overflow-wrap:anywhere">{SITE["email"]}</li><li style="color:#c9c4d8;font-weight:600;font-size:.95rem">{SITE["hours"]}</li>{"".join(f'<li style="color:#c9c4d8;font-weight:600;font-size:.9rem">{E(office_line(o))}</li>' for o in OFFICES)}</ul></div>
     </div>
     <div class="fbot"><span>© {TODAY.year} Kiran Growth School. All rights reserved.</span><span>Founded by {SITE["founder"]} · Stock photos from <a href="https://unsplash.com/" target="_blank" rel="noopener" style="color:inherit">Unsplash</a></span></div>
   </div>
@@ -175,7 +175,22 @@ def org_schema():
         "contactPoint": {"@type": "ContactPoint", "telephone": SITE["phone_e164"], "contactType": "sales", "availableLanguage": ["English", "Hindi"]},
         "sameAs": [SITE["linkedin"]],
         "openingHours": "Mo-Sa 10:00-19:00",
+        "address": postal(OFFICES[0]),
+        "location": [{"@type": "Place", "name": f"Kiran Growth School, {o['locality']}", "address": postal(o), "hasMap": o["maps"]} for o in OFFICES],
     }
+
+def postal(o):
+    return {"@type": "PostalAddress", "streetAddress": o["street"], "addressLocality": o["locality"], "addressRegion": o["region"], "postalCode": o["postal"], "addressCountry": "IN"}
+
+def office_line(o):
+    return f'{o["street"]}, {o["locality"]}, {o["region"]} {o["postal"]}'
+
+def offices_block(only=None):
+    offs = [o for o in OFFICES if only is None or o["city_slug"] == only]
+    if not offs:
+        return ""
+    cards = "".join(f'''<div class="card"><small>{E(o["label"])}</small><h3 style="margin-top:6px;font-size:1.1rem">Kiran Growth School</h3><p style="margin:6px 0">{E(office_line(o))}<br>Phone / WhatsApp: <a href="tel:{SITE["phone_e164"]}">{SITE["phone"]}</a></p><a class="more" href="{E(o["maps"])}" target="_blank" rel="noopener">Open in Google Maps →</a></div>''' for o in offs)
+    return f'<div class="grid2" style="margin-top:22px">{cards}</div>'
 
 def crumbs_schema(items):
     return {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": i + 1, "name": n, "item": U + h} for i, (h, n) in enumerate(items)]}
@@ -608,6 +623,7 @@ def build_locations(posts):
 <div class="head" style="margin-top:44px;margin-bottom:20px"><div><h3>Popular searches we target</h3></div></div><div class="kw">{"".join(f"<span>{E(k)}</span>" for k in sol_kw + re_kw)}</div></div></section>
 <section class="sec" style="padding-top:0"><div class="wrap"><div class="head"><div>{tag("Services in " + E(n), "var(--coral)")}<h2>Everything you need to grow in {E(n)}</h2></div></div>{svc_cards()}
 <div class="citylinks" style="margin-top:28px">{"".join(f'<a href="/services/{sv["slug"]}/">{E(sv["name"])} agency in {E(n)}</a>' for sv in SERVICES)}</div></div></section>
+{('<section class="sec" style="padding-top:0"><div class="wrap"><div class="head"><div>' + tag("Local office", "var(--sun)") + f'<h2>Our office in {E(n)}</h2></div><p>Meet us by appointment. Call or WhatsApp {SITE["phone"]}.</p></div>' + offices_block(c["slug"]) + '</div></section>') if any(o["city_slug"] == c["slug"] for o in OFFICES) else ""}
 {city_more(c)}
 {other_industries(n)}
 <section class="sec" style="padding-top:0"><div class="wrap"><div class="head"><div>{tag("Read", "var(--mint)")}<h2>Guides for {E(n)} businesses</h2></div></div><div class="grid3">{"".join(post_card(p) for p in rel)}</div></div></section>
@@ -740,11 +756,12 @@ def build_contact():
 <p class="lead">All enquiries are handled on WhatsApp at {SITE["phone"]}. Send your business name, city and what you want to grow, and we'll reply with a free plan. You can also call or email.</p>
 <div class="ctas">{wa_btn("Hi Kiran Growth School, I have an enquiry.", "WhatsApp " + SITE["phone"])}<a class="btn b-white" href="tel:{SITE["phone_e164"]}">{I["phone"]}Call now</a></div></div></section>
 <div style="height:60px"></div>
+<section class="sec" style="padding-top:0"><div class="wrap"><div class="head"><div>{tag("Offices", "var(--sun)")}<h2>Our offices</h2></div><p>Visits by appointment. Message us on WhatsApp first.</p></div>{offices_block()}</div></section>
 {contact_block()}
 <section class="sec" style="padding-top:0"><div class="wrap"><div class="head"><div>{tag("Service areas", "var(--pink)")}<h2>We work with businesses in</h2></div></div>{city_links()}</div></section>'''
     ld = {"@type": "ContactPage", "url": U + "/contact/", "name": "Contact Kiran Growth School", "about": {"@id": ORG_ID}}
     page("/contact/", "Contact Kiran Growth School | WhatsApp +91 93998 51765 | Marketing Agency",
-         "Contact Kiran Growth School, a digital and performance marketing agency. WhatsApp or call +91 93998 51765, email founder@kirangrowthschool.com. Mon to Sat, 10 AM to 7 PM.",
+         "Contact Kiran Growth School: offices in Ghaziabad (Mohan Nagar) and Rewa. WhatsApp or call +91 93998 51765, email founder@kirangrowthschool.com. Mon to Sat, 10 AM to 7 PM.",
          body, schema=[ld, crumbs_schema(cr)])
 
 def build_industries_index():
@@ -767,11 +784,13 @@ def build_404():
     PAGES.remove("/404.html")
 
 # ------------------------------------------------------------------ city hubs, city x topic pages, niches
-def nap_card(where):
+def nap_card(where, city_slug=None):
+    off = next((o for o in OFFICES if o["city_slug"] == city_slug), None)
+    addr = f'<br>Office: {E(office_line(off))} · <a href="{E(off["maps"])}" target="_blank" rel="noopener">Map</a>' if off else ""
     ph = I["phone"].replace("<svg ", '<svg style="width:18px;height:18px;vertical-align:-3px;margin-right:8px" ')
     return f'''<div class="card" style="box-shadow:6px 6px 0 var(--sun)"><small>Contact Kiran Growth School{E(where)}</small>
 <h3 style="margin-top:6px"><a href="tel:{SITE["phone_e164"]}" style="text-decoration:none">{ph}{SITE["phone"]}</a></h3>
-<p style="margin:6px 0">WhatsApp &amp; call · {E(SITE["hours"])}<br>{E(SITE["email"])}</p>
+<p style="margin:6px 0">WhatsApp &amp; call · {E(SITE["hours"])}<br>{E(SITE["email"])}{addr}</p>
 <div class="ctas" style="margin-top:10px">{wa_btn("Hi Kiran Growth School, I have an enquiry" + where + ".", "WhatsApp now")}<a class="btn b-white" href="tel:{SITE["phone_e164"]}">Call now</a></div></div>'''
 
 def city_more(c):
@@ -835,7 +854,7 @@ def build_city_topics(posts):
 <section class="sec" style="padding-top:0"><div class="wrap"><div class="head"><div>{tag("Websites we build", "var(--mint)")}<h2>Websites for every type of business in {E(n)}</h2></div></div><div class="grid3">{tcards}</div></div></section>
 <section class="sec" style="padding-top:0"><div class="wrap"><div class="head"><div>{tag("48-hour process", "var(--coral)")}<h2>From WhatsApp message to live website</h2></div></div><div class="grid2">{scards}</div></div></section>
 <section class="sec" style="padding-top:0"><div class="wrap"><div class="head"><div>{tag("Local SEO", "var(--pink)")}<h2>Built to rank in {E(n)} and nearby areas</h2></div><p>We add local pages, Google Maps, LocalBusiness schema and locality keywords so customers searching "website designer near me" or "[your service] in {E(n)}" can find you, including in:</p></div><div class="kw">{micro}</div>
-<div style="margin-top:28px;max-width:560px">{nap_card(" in " + n)}</div></div></section>
+<div style="margin-top:28px;max-width:560px">{nap_card(" in " + n, sl)}</div></div></section>
 {faq_block(faq)}
 <section class="sec" style="padding-top:0"><div class="wrap"><div class="head"><div><h2 style="font-size:1.6rem">Website designer in other cities</h2></div></div><div class="citylinks">{others}</div></div></section>
 {contact_block("Website design")}'''
@@ -879,7 +898,7 @@ def build_city_topics(posts):
 <section class="sec" style="padding-top:0"><div class="wrap"><div class="head"><div>{tag("Campaigns", "var(--mint)")}<h2>Solar campaigns we run in {E(n)}</h2></div><p>Searches we target include:</p></div>
 <div class="grid2"><div class="card"><ul style="margin:0;padding-left:1.1em;display:grid;gap:8px;font-weight:700">{offer}</ul></div><div class="card"><div class="kw">{"".join(f"<span>{E(k)}</span>" for k in kws)}</div></div></div>
 <div class="head" style="margin-top:44px;margin-bottom:20px"><div><h3>Areas we target in and around {E(n)}</h3></div></div><div class="kw">{micro}</div>
-<div style="margin-top:28px;max-width:560px">{nap_card(" for solar marketing in " + n)}</div></div></section>
+<div style="margin-top:28px;max-width:560px">{nap_card(" for solar marketing in " + n, sl)}</div></div></section>
 <section class="sec" style="padding-top:0"><div class="wrap"><div class="head"><div>{tag("Read", "var(--mint)")}<h2>Solar marketing guides</h2></div></div><div class="grid3">{"".join(post_card(q) for q in rel)}</div></div></section>
 {faq_block(faq)}
 <section class="sec" style="padding-top:0"><div class="wrap"><div class="head"><div><h2 style="font-size:1.6rem">Solar marketing in other cities</h2></div></div><div class="citylinks">{sothers}</div></div></section>
@@ -943,6 +962,7 @@ Key facts:
 - Website development: standard business websites go live within 48 hours of receiving content.
 - Secondary: an academy with two courses, Meta Ads & Digital Marketing (₹25,000) and AI Tools & Website Design (₹25,000).
 - Contact: WhatsApp / call {SITE['phone']}, email {SITE['email']}, {SITE['hours']}.
+- Offices: {"; ".join(office_line(o) for o in OFFICES)}.
 - Founder: {SITE['founder']} ({SITE['linkedin']}).
 
 ## Industries

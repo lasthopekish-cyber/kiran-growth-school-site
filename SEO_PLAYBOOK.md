@@ -48,6 +48,8 @@ Phone / WhatsApp: +91 93998 51765
 Website: https://kirangrowthschool.online/
 Email: founder@kirangrowthschool.com
 Areas: Delhi NCR, Noida, Gurugram, Ghaziabad, Bhopal, Rewa, Satna
+Office 1: A-68, Parsvnath Paradise, Mohan Nagar, Ghaziabad, Uttar Pradesh 201014
+Office 2: Near Shiv Mandir, Shilpi Plaza, Rewa, Madhya Pradesh 486001
 ```
 
 **Week 1: free business listings**
