@@ -2,9 +2,9 @@
 
 Website for Kiran Growth School (kirangrowthschool.online): a **performance marketing agency** for solar companies and real estate businesses, with a secondary academy (Courses tab).
 
-- Services: Meta Ads, Google Ads, website design, AI videos, AI avatar videos, AI automation
-- Industries: solar (rooftop, PM Surya Ghar, commercial) and real estate (builders, brokers, channel partners)
-- Cities: Delhi, Delhi NCR, Gurugram, Ghaziabad, Bhopal, Rewa, Satna
+- Services: website design (48 hours), Meta Ads, Google Ads, video editing, AI videos, AI avatar videos, AI automation
+- Industries: solar (rooftop, PM Surya Ghar, commercial), real estate, education/coaching, sweets & bakery, and all local businesses
+- Cities: Delhi, Delhi NCR, Noida, Gurugram, Ghaziabad, Bhopal, Rewa, Satna
 - **All enquiries go to WhatsApp +91 93998 51765** (wa.me/919399851765)
 
 ## How the site is built

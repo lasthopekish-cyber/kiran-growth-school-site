@@ -19,7 +19,7 @@ faq: Question three? || Short, direct answer.
 ---
 ```
 
-- `category` must be one of: `solar`, `real-estate`, `ai`, `growth`.
+- `category` must be one of: `web` (website design), `solar`, `real-estate`, `education`, `bakery` (sweets & bakery), `video` (video editing, AI video), `ai`, `growth` (Meta/Google Ads, general).
 - `order` sorts posts published on the same date (higher = shown first).
 - No colons inside `title`, `description` or `tldr` values except the first one after the key (the parser splits on the first colon only, so colons later in the line are fine).
 - Body: Markdown with `##` and `###` headings, lists and tables. Do not repeat the title as an H1.
@@ -32,11 +32,31 @@ faq: Question three? || Short, direct answer.
 4. **Never say "free solar panels".** Say "subsidy up to ₹78,000" (or the current cap).
 5. **Unique topic.** Before writing, list `content/blog/` and do not repeat a topic or slug that already exists. A new angle on the same theme is fine (different city, different buyer, different channel).
 6. **Length:** 900-1,400 words. Short paragraphs, at least one table or checklist, a TL;DR, and 3 FAQs.
-7. **Internal links (3+):** link to one service page (`/services/meta-ads/`, `/services/google-ads/`, `/services/website-development/`, `/services/ai-video-production/`, `/services/ai-avatar-videos/`, `/services/ai-automation/`), one industry page (`/solar-marketing-agency/` or `/real-estate-marketing-agency/`), one city page (`/locations/delhi/`, `/locations/delhi-ncr/`, `/locations/gurugram/`, `/locations/ghaziabad/`, `/locations/bhopal/`, `/locations/rewa/`, `/locations/satna/`) and, where relevant, an existing blog post.
-8. **End with a soft call to action** to WhatsApp +91 93998 51765.
+7. **Internal links (3+):** link to one service page (`/services/website-development/`, `/services/meta-ads/`, `/services/google-ads/`, `/services/video-editing/`, `/services/ai-video-production/`, `/services/ai-avatar-videos/`, `/services/social-media-management/`, `/services/ai-automation/`), one industry page (`/solar-marketing-agency/`, `/real-estate-marketing-agency/`, `/education-marketing-agency/`, `/sweets-bakery-marketing-agency/`), one city page and, where relevant, an existing blog post.
+   - City slugs: `delhi`, `delhi-ncr`, `noida`, `gurugram`, `ghaziabad`, `bhopal`, `rewa`, `satna`.
+   - Every city has `/locations/<city>/`, `/locations/<city>/website-designer/` and `/locations/<city>/solar-marketing/`. **Website design posts must link to the city's `website-designer` page; solar posts must link to the city's `solar-marketing` page.** Use the target keyword as anchor text once (e.g. `[website designer in Bhopal](/locations/bhopal/website-designer/)`).
+8. **End with a soft call to action**: call or WhatsApp +91 93998 51765 (write the number in full so it shows in search snippets).
 9. Indian English, rupee symbol (₹), lakh/crore where natural.
+10. **SEO basics:** target keyword in the title (near the start), in the description, in the first 100 words, in one `##` heading and in the slug. Mention the city naturally 3 to 6 times. Answer the searcher's question in the TL;DR.
 
-## Topic bank (rotate; one solar/PM Surya Ghar + one real estate per day)
+## Daily plan
+
+Three posts a day, taken from `content/blog-queue.md`: one website design (slot A), one solar (slot B), one rotating real estate / education / bakery / video / ads (slot C). Priority keywords to rank for, in every city (Delhi, Delhi NCR, Noida, Gurugram, Ghaziabad, Bhopal, Rewa, Satna):
+
+- **Top priority:** best website designer / website developer / website design company in <city>; solar marketing agency / solar leads / solar company marketing in <city>
+- **Also:** real estate marketing, education / coaching marketing, sweets & bakery marketing, video editing, AI video making, Meta Ads agency, Google Ads agency in <city>
+
+## Topic bank (for refilling the queue)
+
+**Website design**
+- Website cost, website designer checklists, local SEO, redesigns, industry websites (solar, real estate, coaching, bakery, clinic) per city
+- Website vs Instagram vs Justdial, Google Business Profile + website, website speed and mobile-first
+
+**Education, bakery, video**
+- Admission-season campaigns, coaching institute reels, school ads by city
+- Festival campaigns for sweet shops, cake shop WhatsApp ordering, bakery Google Maps
+- Video editing for reels and ads, AI video making, AI avatar videos by industry
+
 
 **Solar / PM Surya Ghar**
 - PM Surya Ghar application steps explained for homeowners in a specific city/DISCOM

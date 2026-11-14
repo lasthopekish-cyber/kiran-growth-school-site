@@ -47,7 +47,7 @@ Digital & performance marketing agency (Meta Ads, Google Ads, websites, social m
 Phone / WhatsApp: +91 93998 51765
 Website: https://kirangrowthschool.online/
 Email: founder@kirangrowthschool.com
-Areas: Delhi NCR, Gurugram, Ghaziabad, Bhopal, Rewa, Satna
+Areas: Delhi NCR, Noida, Gurugram, Ghaziabad, Bhopal, Rewa, Satna
 ```
 
 **Week 1: free business listings**

@@ -65,9 +65,9 @@ SERVICES = [
     },
     {
         "slug": "website-development", "icon": "web", "bg": "#fff1cc", "c": "#d98a00",
-        "name": "Website in 48 Hours", "short": "Website development, live in 48 hours",
-        "title": "Website Development in 48 Hours | Fast, SEO-Ready Business Websites in India",
-        "desc": "Get a professional, mobile-first business website live in 48 hours. Website design and development for every business in India, built for SEO, Google Ads and WhatsApp enquiries.",
+        "name": "Website Design", "short": "Website design & development, live in 48 hours",
+        "title": "Website Designer & Developer in Delhi NCR, Noida, Bhopal | Website in 48 Hours",
+        "desc": "Website designer and developer for businesses in Delhi NCR, Noida, Ghaziabad, Gurugram, Bhopal, Rewa and Satna. Mobile-first, SEO-ready website live in 48 hours. Call/WhatsApp +91 93998 51765.",
         "h1": "Your business website, <span class=\"hl hy\">live in 48 hours</span>",
         "lead": "Send us your logo, services, photos and contact details, and we'll design, build and launch a fast, mobile-first website in 48 hours. Built for Google, AI search and WhatsApp enquiries from day one.",
         "chips": ["48-hour launch", "Mobile-first", "SEO-ready", "WhatsApp CTAs", "Domain & hosting"],
@@ -150,6 +150,29 @@ SERVICES = [
             ("Is an AI avatar of me safe?", "We only create a personal avatar with your written consent, and you approve every script and video before it is published."),
             ("Do avatar videos work for ads?", "They work well for explainers, FAQs and updates. For the main ad creatives we test them against real footage and UGC and keep what converts."),
             ("Which languages can the avatar speak?", "Hindi and English are standard; other Indian languages are possible depending on the tool and voice quality."),
+        ],
+    },
+    {
+        "slug": "video-editing", "icon": "video", "bg": "#fff0e0", "c": "#e0761a",
+        "name": "Video Editing", "short": "Reels, ads and YouTube edits that keep people watching",
+        "title": "Video Editing Services for Reels, Ads & YouTube | Professional Video Editor",
+        "desc": "Professional video editing for Instagram reels, ad videos, YouTube and testimonials. Clean cuts, captions and clear audio for businesses in Delhi NCR, Noida, Bhopal and across India.",
+        "h1": "Video editing that keeps people <span class=\"hl hy\">watching</span>",
+        "lead": "Send us your raw phone or camera footage and we turn it into reels, ad videos, YouTube videos and testimonials that look professional, sound clear and are cut to hold attention.",
+        "chips": ["Reels & Shorts", "Ad videos", "YouTube edits", "Captions", "Noise removal"],
+        "points": [
+            ("Hook in the first 3 seconds", "We restructure your footage so the most interesting moment comes first, which is what keeps reels and ads from being skipped."),
+            ("Natural look, your footage", "We keep your real footage looking real: clean cuts, stabilisation and exposure fixes, without heavy filters that make videos feel fake."),
+            ("Clear voice, no background noise", "Background noise removal and level balancing so your real voice stays clear and natural on every phone speaker."),
+            ("Captions people can read", "Bold, readable on-screen captions in Hindi, English or Hinglish, placed inside the safe zone so Instagram buttons don't cover them."),
+            ("Logo and brand kit", "Your logo, colours and CTA end-card on every video, consistent across reels, ads and YouTube."),
+            ("Every format from one shoot", "One shoot becomes a 9:16 reel, a 1:1 feed post, a 4:5 ad and a 16:9 YouTube cut."),
+        ],
+        "faq": [
+            ("What videos can you edit?", "Instagram reels and YouTube Shorts, Meta and YouTube ad videos, long-form YouTube videos, client testimonials, property walkthroughs, solar installation videos, food and bakery reels, event highlights and course or coaching videos."),
+            ("Can I shoot on my phone?", "Yes. Most of our edits start from phone footage. We share simple shooting tips (light, framing, audio) so the raw footage is good enough to edit well."),
+            ("How fast is delivery?", "Most reels and short ad videos are delivered within 24 to 72 hours of receiving footage, depending on length and volume. Monthly packages get a fixed turnaround."),
+            ("Do you also make AI videos?", "Yes. We can mix your real footage with AI scenes, or create full AI videos and AI avatar videos when you don't have footage. See our AI video production page."),
         ],
     },
     {
@@ -250,6 +273,15 @@ CITIES = [
         "intro": "Ghaziabad is a value-conscious, connectivity-driven market. Clear prices, clear subsidy numbers and fast WhatsApp replies win here.",
     },
     {
+        "slug": "noida", "name": "Noida", "state": "Uttar Pradesh", "region": "NCR",
+        "discom": "PVVNL (Paschimanchal Vidyut Vitran Nigam) and NPCL in Greater Noida",
+        "rera": "UP RERA",
+        "micro": ["Noida sectors (18, 62, 63, 137, 150)", "Noida Extension (Greater Noida West)", "Greater Noida", "Noida-Greater Noida Expressway", "Yamuna Expressway & Jewar airport belt"],
+        "solar_angle": "Noida mixes large group-housing societies, independent kothis in older sectors and a big base of factories and offices in the industrial sectors. RWA rooftop and commercial and industrial rooftop campaigns sit alongside PM Surya Ghar campaigns for house owners.",
+        "re_angle": "Noida and Greater Noida West sell on expressway access, metro connectivity and the Jewar airport story. Buyers compare towers, possession timelines and builder track records, so ads should lead with UP RERA-registered facts and real progress.",
+        "intro": "Noida is a planned, digital-first city with IT parks, factories, startups and huge housing societies. Buyers search Google and Instagram before they call, so a fast website and sharp local ads matter.",
+    },
+    {
         "slug": "bhopal", "name": "Bhopal", "state": "Madhya Pradesh", "region": "MP",
         "discom": "MP Madhya Kshetra Vidyut Vitaran Company (MPMKVVCL)",
         "rera": "MP RERA",
@@ -275,6 +307,64 @@ CITIES = [
         "solar_angle": "Satna's cement and industrial belt makes commercial and industrial rooftop solar a serious opportunity, alongside residential PM Surya Ghar demand in the city.",
         "re_angle": "Satna demand is led by plotted colonies, independent homes and commercial space for local businesses. Simple, trust-led Hindi creatives and quick WhatsApp replies convert best.",
         "intro": "Satna businesses need marketing that is simple, local and measurable. We keep campaigns lean and focused on calls and WhatsApp chats.",
+    },
+]
+
+# Per-city angle for the "website designer in <city>" landing pages (/locations/<city>/website-designer/).
+WEB_ANGLE = {
+    "delhi": "Delhi has lakhs of shops, clinics, coaching centres, wholesalers and service firms competing in the same Google results. A website that loads fast on 4G, shows your locality and gets a WhatsApp chat in one tap is often what decides who gets the call in Karol Bagh, Lajpat Nagar, Dwarka or Rohini.",
+    "delhi-ncr": "Across Delhi NCR, customers compare several businesses on their phones before calling. Your website has to load in seconds, rank for your city and locality, and turn visits into WhatsApp chats, whether you sell in Delhi, Gurugram, Noida, Ghaziabad or Faridabad.",
+    "gurugram": "Gurugram buyers expect premium, polished brands. Startups, clinics, interior designers, real estate firms and B2B companies here need websites that look as good as their offices and load fast for busy, mobile-first customers.",
+    "ghaziabad": "Ghaziabad businesses, from Raj Nagar Extension builders to Indirapuram clinics and Vasundhara coaching centres, compete with Delhi and Noida brands for the same customers. A clean, local, WhatsApp-first website helps you win the search.",
+    "noida": "Noida is home to IT companies, startups, manufacturers in the industrial sectors and thousands of local businesses in Noida Extension and Greater Noida. Each needs a fast, professional website that ranks for its sector or locality and generates enquiries.",
+    "bhopal": "In Bhopal, many local businesses still rely only on Justdial or Instagram. A proper website with Hindi-friendly content, Google Maps, reviews and WhatsApp buttons helps coaching institutes, clinics, sweet shops, builders and solar installers stand out on MP Nagar, Kolar Road and beyond.",
+    "rewa": "Rewa businesses often have no website at all, which makes it easy to stand out. A simple, fast website with your services, photos, Google Maps location and WhatsApp button helps schools, coaching centres, shops, builders and solar installers get found by people searching on Google.",
+    "satna": "Satna's traders, industrial suppliers, schools, sweet shops and builders increasingly get enquiries from Google. A fast, trustworthy website with clear services, photos and a WhatsApp button is the quickest way to look established and get found.",
+}
+
+# Niche industry landing pages (built at /<slug>/).
+NICHES = [
+    {
+        "slug": "education-marketing-agency", "name": "Education", "key": "education",
+        "title": "Education Marketing Agency | Admissions Leads for Coaching, Schools & EdTech",
+        "desc": "Education marketing for coaching institutes, schools, colleges and edtech: Meta Ads, Google Ads, websites, reels and WhatsApp automation that bring admission enquiries. WhatsApp +91 93998 51765.",
+        "h1": "Education marketing that fills <span class=\"hl hb\">batches</span> and <span class=\"hl hy\">classrooms</span>",
+        "lead": "Parents and students compare coaching institutes, schools and courses on Google, Instagram and YouTube before they visit. We put your institute in front of them during admission season and follow up instantly on WhatsApp.",
+        "pains": [
+            ("Enquiries only in season", "Most institutes get a rush in admission months and silence after. We build always-on awareness plus season-specific campaigns so the pipeline doesn't dry up."),
+            ("Leads that don't visit", "Form fills that never come for a demo class. We qualify by class, course and location, and send demo-class reminders on WhatsApp."),
+            ("No proof online", "Results, faculty and student testimonials sit in WhatsApp groups instead of on your website and Instagram. We turn them into content that builds trust."),
+            ("Competing with big brands", "National edtech brands outspend local institutes. Local targeting, Hindi creatives and a strong Google Business Profile let you win your area."),
+        ],
+        "offer": ["Coaching institutes (JEE, NEET, UPSC, SSC, banking)", "Schools and pre-schools admissions", "Colleges and professional courses", "EdTech and online courses", "Skill, language and computer training centres", "Demo-class and seminar campaigns"],
+        "keywords": ["coaching institute marketing", "school admission ads", "education marketing agency Delhi NCR", "coaching centre leads Bhopal", "Meta ads for coaching institute", "Google ads for schools", "edtech lead generation"],
+        "faq": [
+            ("When should an institute start admission campaigns?", "Start building awareness and retargeting audiences 6 to 8 weeks before your admission window, then increase budget when parents and students are actively deciding. Always-on campaigns at a lower budget keep enquiries coming in the off-season."),
+            ("Which works better for coaching institutes, Meta or Google Ads?", "Google Search captures students already searching for a course in your area. Meta and YouTube build awareness with results, faculty and student-story videos. Most institutes do best with both, plus a strong Google Business Profile."),
+            ("Can you run ads for schools?", "Yes. School admission campaigns focus on parents within a realistic travel radius, with campus videos, facilities and a clear visit or admission-form CTA."),
+            ("Can you make reels for our institute?", "Yes. We edit faculty clips, topper interviews, classroom moments and quick concept explainers into reels, plus AI avatar videos for regular updates."),
+        ],
+    },
+    {
+        "slug": "sweets-bakery-marketing-agency", "name": "Sweets & Bakery", "key": "bakery",
+        "title": "Sweets Shop & Bakery Marketing Agency | Orders from Instagram, Google & WhatsApp",
+        "desc": "Marketing for sweet shops, bakeries, cake shops and cafes: Instagram reels, Meta Ads, Google Maps, websites and WhatsApp ordering for festival and daily orders. WhatsApp +91 93998 51765.",
+        "h1": "Sweets &amp; bakery marketing that brings <span class=\"hl hp\">orders</span>, not just likes",
+        "lead": "People choose a sweet shop or bakery by what they see on Instagram and Google Maps. We make your products look irresistible, push festival and celebration orders, and make ordering on WhatsApp effortless.",
+        "pains": [
+            ("Great products, weak reels", "Most bakery and mithai shop content is a static photo. We create mouth-watering reels from your real kitchen and counter that people save and share."),
+            ("Festival rush not planned", "Diwali, Raksha Bandhan, Holi, Christmas and wedding season decide your year. We plan gift-box and pre-order campaigns weeks in advance."),
+            ("Invisible on Google Maps", "When someone searches 'cake shop near me' or 'best sweets near me', a weak Google Business Profile loses the sale. We fix photos, categories, menus and reviews."),
+            ("Orders lost in DMs", "Cake and box orders arrive in Instagram DMs, calls and WhatsApp with no system. We set up a WhatsApp ordering flow and catalogue so no order is missed."),
+        ],
+        "offer": ["Custom cake and birthday orders", "Festival gift boxes (Diwali, Rakhi, Holi)", "Corporate and wedding bulk orders", "Bakery and cafe footfall campaigns", "New outlet launches", "WhatsApp catalogue and ordering"],
+        "keywords": ["bakery marketing agency", "sweet shop marketing", "cake shop near me", "best sweets shop Delhi", "bakery Instagram reels", "Diwali gift box marketing", "bakery Google Maps ranking"],
+        "faq": [
+            ("How can a bakery get more orders online?", "Post short reels of products being made and served, run local Meta Ads within a few kilometres of the shop, keep Google Business Profile photos and menu updated, collect reviews, and make ordering easy with a WhatsApp catalogue."),
+            ("When should a sweet shop start Diwali marketing?", "Start teasing gift boxes and corporate orders 4 to 6 weeks before Diwali, open pre-orders 2 to 3 weeks before, and push same-day and pickup messaging in the final week."),
+            ("Do you shoot the product videos?", "We edit footage you shoot on your phone using our simple shooting guide, keep the real look of your products without heavy filters, and add captions and your logo. On-site shoots can be arranged in some cities."),
+            ("Can you help us rank on Google Maps?", "Yes. We optimise your Google Business Profile (categories, photos, products, posts and review requests) and build a fast website and local pages that support your Maps ranking."),
+        ],
     },
 ]
 
