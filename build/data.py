@@ -13,7 +13,7 @@ SITE = {
     "tagline": "Digital & performance marketing agency in India",
     # Paste verification codes here (content="..." value only), then rebuild.
     "google_verification": "vGmAw9gELNmhLJ25PUK6HnG5OBMFB9SU_Ui6ZSW4lQs",
-    "bing_verification": "",
+    "bing_verification": "174B3794F3A8B3BA10528A5FA6B7A1D1",
     "indexnow_key": "c54e03725d3c6db5a08a62b10d1b4d3b",
 }
 
