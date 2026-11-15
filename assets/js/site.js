@@ -2,14 +2,20 @@
 (function(){
   const WA="919399851765",waUrl=m=>"https://wa.me/"+WA+"?text="+encodeURIComponent(m);
   const $=id=>document.getElementById(id);
-  // enquiry form -> prefilled WhatsApp message
-  const send=$("send");
-  if(send){
-    const v=id=>($(id)&&$(id).value||"").trim();
-    const build=()=>{let m="Hi Kiran Growth School, new website enquiry.\nName: "+(v("nm")||"-")+"\nPhone: "+(v("pn")||"-")+"\nCity: "+(v("ct")||"-")+"\nBusiness: "+(v("tp")||"-")+"\nInterested in: "+(v("it")||"-");if(v("ms"))m+="\nMessage: "+v("ms");m+="\nPage: "+location.pathname;send.href=waUrl(m)};
-    ["nm","pn","ct","tp","it","ms"].forEach(id=>$(id)&&$(id).addEventListener("input",build));build();
-    const f=$("enq");f&&f.addEventListener("submit",e=>{e.preventDefault();window.open(send.href,"_blank","noopener")});
-  }
+  // every lead form (.lf) -> prefilled WhatsApp message
+  const lbl={nm:"Name",pn:"Phone",ct:"City",bz:"Business",tp:"Business type",it:"Interested in",ms:"Message"};
+  document.querySelectorAll("form.lf").forEach(f=>{
+    f.addEventListener("submit",e=>{
+      e.preventDefault();
+      const pn=f.querySelector('[name="pn"]');
+      if(pn&&pn.value.replace(/\D/g,"").length<10){pn.focus();pn.setCustomValidity("Please enter a 10-digit phone number");pn.reportValidity();setTimeout(()=>pn.setCustomValidity(""),2000);return}
+      let m="Hi Kiran Growth School, new website enquiry.";
+      Object.keys(lbl).forEach(k=>{const el=f.querySelector('[name="'+k+'"]');if(el&&el.value.trim())m+="\n"+lbl[k]+": "+el.value.trim()});
+      m+="\nPage: "+location.pathname+(f.dataset.src?" ("+f.dataset.src+")":"");
+      if(window.gtag)try{gtag("event","generate_lead",{form:f.dataset.src||"form"})}catch(_){}
+      window.open(waUrl(m),"_blank","noopener");
+    });
+  });
   document.querySelectorAll(".copy").forEach(b=>b.addEventListener("click",()=>{try{navigator.clipboard.writeText(b.dataset.copy).then(()=>{b.textContent="Copied";setTimeout(()=>b.textContent="Copy",1500)})}catch(e){}}));
   const bg=$("burger"),mob=$("mob");
   if(bg&&mob){bg.addEventListener("click",()=>{const o=mob.classList.toggle("open");bg.setAttribute("aria-expanded",String(o))});

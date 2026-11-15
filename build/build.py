@@ -205,6 +205,9 @@ def crumbs_html(items):
     return '<nav class="crumbs" aria-label="Breadcrumb">' + ' <span>/</span> '.join(out) + '</nav>'
 
 def page(path, title, desc, body, active=None, schema=None, og_type="website", og_img="/assets/img/og-default.jpg", extra_head=""):
+    if body.lstrip().startswith('<section class="phero"') and path not in ("/contact/", "/404.html"):
+        i = body.find("</section>") + len("</section>")
+        body = body[:i] + "\n" + qbar() + body[i:]
     graph = [org_schema(), {"@type": "WebSite", "@id": U + "/#website", "url": U + "/", "name": SITE["name"], "publisher": {"@id": ORG_ID}, "inLanguage": "en-IN"}]
     graph += schema or []
     ld = json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False)
@@ -237,8 +240,9 @@ def page(path, title, desc, body, active=None, schema=None, og_type="website", o
 <link rel="alternate" type="application/rss+xml" title="Kiran Growth School Blog" href="/blog/feed.xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800;900&family=Figtree:wght@400;500;600;700;800&family=Space+Mono:wght@700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap">
 <link rel="stylesheet" href="/assets/css/site.css?v={TODAY:%Y%m%d}">
+<link rel="stylesheet" href="/assets/css/premium.css?v={TODAY:%Y%m%d}">
 {extra_head}<script type="application/ld+json">{ld}</script>
 </head>
 <body>
@@ -271,7 +275,7 @@ def faq_block(faq, title='Questions? <span class="hl hy">Answered.</span>'):
 <div class="faq">{items}</div></div></section>'''
 
 def contact_block(interest_default=None):
-    opts = ["Meta Ads", "Google Ads", "Website design", "Social media management", "Video editing", "AI videos", "AI avatar videos", "AI automation", "Complete performance marketing", "Courses (Meta Ads / AI)"]
+    opts = SVC_OPTS
     opt_html = "".join(f'<option{" selected" if o == interest_default else ""}>{E(o)}</option>' for o in opts)
     btypes = ["Solar company / installer", "Real estate builder", "Real estate broker / channel partner", "School / coaching / education", "Sweet shop / bakery / cafe", "Other business", "Student / learner"]
     bt_html = "".join(f"<option>{E(b)}</option>" for b in btypes)
@@ -280,12 +284,12 @@ def contact_block(interest_default=None):
     <div class="form">
       {tag("Enquiry form")}
       <h2 style="font-size:clamp(1.7rem,3.4vw,2.5rem);margin-top:16px">Get your <span class="hl hm">free growth plan</span></h2>
-      <form id="enq" novalidate>
-        <div class="r2"><label for="nm">Your name<input id="nm" placeholder="e.g. Rahul Sharma" autocomplete="name"></label><label for="pn">Phone<input id="pn" placeholder="10-digit number" inputmode="tel" autocomplete="tel"></label></div>
-        <div class="r2"><label for="ct">City<input id="ct" placeholder="e.g. Gurugram"></label><label for="tp">Business<select id="tp">{bt_html}</select></label></div>
-        <label for="it">Interested in<select id="it">{opt_html}</select></label>
-        <label for="ms">Message (optional)<textarea id="ms" placeholder="Monthly budget, projects, current lead sources..."></textarea></label>
-        <a id="send" class="btn b-wa" href="{E(wa("Hi Kiran Growth School, new website enquiry."))}" target="_blank" rel="noopener">{I["wa"]}Send enquiry on WhatsApp</a>
+      <form class="lf" novalidate data-src="contact">
+        <div class="r2"><input name="nm" placeholder="Your name" autocomplete="name" aria-label="Your name"><input name="pn" placeholder="Phone number" inputmode="tel" autocomplete="tel" aria-label="Phone number" required></div>
+        <div class="r2"><input name="ct" placeholder="City" aria-label="City"><select name="tp" aria-label="Business type">{bt_html}</select></div>
+        <select name="it" aria-label="Interested in">{opt_html}</select>
+        <input name="ms" placeholder="Message (optional): budget, projects, current lead sources" aria-label="Message">
+        <button class="btn b-grad" type="submit">{I["wa"]}Send enquiry on WhatsApp</button>
         <p class="note">Opens WhatsApp with your details filled in. Just press send.</p>
       </form>
     </div>
@@ -308,7 +312,8 @@ def svc_cards(highlight=None):
     cards = []
     for i, s in enumerate(SERVICES):
         chips = "".join(f"<span>{E(c)}</span>" for c in s["chips"][:4])
-        wide = " w" if len(SERVICES) % 3 == 1 and i >= len(SERVICES) - 4 else ""
+        n = len(SERVICES)
+        wide = " w" if (n % 3 == 1 and i >= n - 4) or (n % 3 == 2 and i >= n - 2) else ""
         cards.append(f'<article class="s{wide}" style="--bg:{s["bg"]};--c:{s["c"]}"><div class="ic">{I[s["icon"]]}</div><h3>{E(s["name"])}</h3><p>{E(s["short"])}. {E(s["lead"].split(". ")[0])}.</p><div class="chips">{chips}</div><a class="more" href="/services/{s["slug"]}/">Explore {E(s["name"])} →</a></article>')
     cards.append(f'<article class="s audit"><div><h3>Get a free growth audit</h3><p>Send your business details on WhatsApp. We review your ads, website and follow-up process, and reply with a channel plan for your city.</p></div>{wa_btn("Hi, I would like a free growth audit. My business is: ", "Request free audit", "b-sun")}</article>')
     return '<div class="svc">' + "".join(cards) + "</div>"
@@ -394,6 +399,63 @@ def post_card(p):
     cat, c = CAT.get(p["category"], ("Insights", "var(--sky)"))
     return f'<a class="card post" href="/blog/{p["slug"]}/" style="--bg:var(--white)"><span class="thumb">{img(post_img(p), 600)}</span><small style="color:var(--ink)"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:{c};border:1.5px solid var(--ink);margin-right:6px"></span>{cat} · {p["date_obj"]:%d %b %Y}</small><h3>{E(p["title"])}</h3><p>{E(p["description"])}</p><span class="more">Read · {p["mins"]} min →</span></a>'
 
+# ------------------------------------------------------------------ premium: lead forms + charts
+SVC_OPTS = ["Website design", "Solar marketing", "Real estate marketing", "Meta Ads", "Google Ads", "Social media management", "Video editing", "AI videos / AI avatar", "AI automation", "Education marketing", "Sweets & bakery marketing", "Complete digital marketing", "Courses (Meta Ads / AI)"]
+
+def _opts(default=None):
+    return "".join(f'<option{" selected" if o == default else ""}>{E(o)}</option>' for o in SVC_OPTS)
+
+def lead_form(kind="card", title="Get a free growth plan", sub="Tell us about your business. We reply on WhatsApp within working hours.", default=None, city=""):
+    """kind: card (hero/side), bar (inline under page hero). Submits to WhatsApp via site.js."""
+    btn = f'<button class="btn b-grad" type="submit">{I["wa"]}Get free plan on WhatsApp</button>'
+    if kind == "bar":
+        return f'''<form class="lf" novalidate data-src="quick-bar"><input name="nm" placeholder="Your name" autocomplete="name" aria-label="Your name"><input name="pn" placeholder="Phone number" inputmode="tel" autocomplete="tel" aria-label="Phone number" required><select name="it" aria-label="Service">{_opts(default)}</select><button class="btn b-grad" type="submit">{I["wa"]}Get a call back</button></form>'''
+    return f'''<div class="lfcard"><h2>{E(title)}</h2><p class="sub">{E(sub)}</p>
+<form class="lf" novalidate data-src="{kind}"><div class="r2"><input name="nm" placeholder="Your name" autocomplete="name" aria-label="Your name"><input name="pn" placeholder="Phone number" inputmode="tel" autocomplete="tel" aria-label="Phone number" required></div>
+<div class="r2"><input name="ct" placeholder="City" value="{E(city)}" aria-label="City"><input name="bz" placeholder="Business name" aria-label="Business name"></div>
+<select name="it" aria-label="Service you need">{_opts(default)}</select>
+{btn}<div class="trust"><span>Free consultation</span><span>Reply on WhatsApp</span><span>No spam</span></div></form></div>'''
+
+def qbar(default=None):
+    return f'''<div class="qbar"><div class="wrap"><div class="in"><div class="lbl"><b>Get a free growth plan</b><span>Call or WhatsApp {SITE["phone"]}</span></div>{lead_form("bar", default=default)}</div></div></div>'''
+
+def fband(h="Want more enquiries this month?", p="Share a few details and we'll send a free, practical plan for your business: which channels, what budget, and what to fix first.", default=None):
+    return f'''<section class="sec" style="padding-top:0"><div class="wrap"><div class="fband"><div>{tag("Free growth plan", "var(--mint)")}<h2 style="margin-top:16px">{h}</h2><p>{p}</p>
+<ul><li>Free audit of your ads, website and follow-up</li><li>Channel and budget plan for your city</li><li>Reply on WhatsApp during working hours (Mon to Sat)</li></ul></div>{lead_form("card", "Request your free plan", "Takes 20 seconds.", default=default)}</div></div></section>'''
+
+PAL = ["#4f46e5", "#8b5cf6", "#e9b44c", "#12b886", "#38bdf8", "#f2643d"]
+
+def donut(title, segs, cap, center=("100%", "of budget")):
+    r, c = 62, 2 * 3.14159265 * 62
+    off, arcs = 0, ""
+    for i, (lab, v) in enumerate(segs):
+        ln = c * v / 100
+        arcs += f'<circle r="{r}" cx="85" cy="85" fill="none" stroke="{PAL[i % len(PAL)]}" stroke-width="24" stroke-dasharray="{ln - 2:.1f} {c - ln + 2:.1f}" stroke-dashoffset="{-off:.1f}" transform="rotate(-90 85 85)"/>'
+        off += ln
+    leg = "".join(f'<div><span><i style="background:{PAL[i % len(PAL)]}"></i>{E(l)}</span><b>{v}%</b></div>' for i, (l, v) in enumerate(segs))
+    svg = f'<svg viewBox="0 0 170 170" role="img" aria-label="{E(title)}"><circle r="{r}" cx="85" cy="85" fill="none" stroke="#eef0f6" stroke-width="24"/>{arcs}<text x="85" y="82" text-anchor="middle" font-family="Sora,Inter,sans-serif" font-weight="700" font-size="20" fill="#0b1020">{E(center[0])}</text><text x="85" y="102" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#5f6880">{E(center[1])}</text></svg>'
+    return f'<figure class="viz" style="margin:0"><h3>{E(title)}</h3><div class="donut">{svg}<div class="legend">{leg}</div></div><figcaption class="cap">{E(cap)}</figcaption></figure>'
+
+def stacked(title, rows, keys, cap):
+    leg = "".join(f'<span style="display:inline-flex;align-items:center;gap:6px;margin-right:12px;font-size:.8rem;color:var(--soft);font-weight:600"><i style="width:10px;height:10px;border-radius:3px;background:{PAL[i]}"></i>{E(k)}</span>' for i, k in enumerate(keys))
+    rs = "".join(f'<div class="row"><span>{E(n)}</span><div class="bar" role="img" aria-label="{E(n)}: ' + ", ".join(f"{keys[i]} {v}%" for i, v in enumerate(vals)) + '">' + "".join(f'<i style="width:{v}%;background:{PAL[i]}"></i>' for i, v in enumerate(vals)) + '</div></div>' for n, vals in rows)
+    return f'<figure class="viz" style="margin:0"><h3>{E(title)}</h3><div>{leg}</div><div class="stack">{rs}</div><figcaption class="cap">{E(cap)}</figcaption></figure>'
+
+def timeline(title, items, cap):
+    rows = "".join(f'<div><b>{E(a)}</b><span>{E(b)}</span></div>' for a, b in items)
+    return f'<figure class="viz" style="margin:0"><h3>{E(title)}</h3><div class="tline">{rows}</div><figcaption class="cap">{E(cap)}</figcaption></figure>'
+
+def viz_section(head='How we plan <span class="hl">your growth</span>', sub="Every plan starts from your goal and budget. These are the starting points we use before real campaign data takes over.", which="general"):
+    if which == "solar":
+        d = donut("Starting budget split: solar installer", [("Google Search (high intent)", 40), ("Meta lead & WhatsApp ads", 40), ("Retargeting & YouTube", 12), ("Creative testing", 8)], "Illustrative starting split for a local rooftop-solar campaign. We rebalance weekly on cost per qualified lead.")
+    elif which == "re":
+        d = donut("Starting budget split: real estate project", [("Meta lead & WhatsApp ads", 50), ("Google Search", 30), ("YouTube walkthroughs", 12), ("Retargeting", 8)], "Illustrative starting split for a project launch. Final mix depends on ticket size, location and RERA status.")
+    else:
+        d = donut("Starting budget split: local lead generation", [("Meta Ads (Facebook & Instagram)", 45), ("Google Search & Maps", 35), ("Retargeting & YouTube", 12), ("Creative testing", 8)], "Illustrative starting split for a typical local business. We tune it weekly on cost per qualified lead.")
+    s = stacked("What we usually run, by industry", [("Solar", [30, 35, 15, 20]), ("Real estate", [40, 25, 20, 15]), ("Education", [35, 25, 25, 15]), ("Sweets & bakery", [35, 15, 35, 15]), ("Local services", [30, 35, 15, 20])], ["Meta Ads", "Google Ads", "Video & social", "Website & SEO"], "Typical share of effort per channel when we start. Every account is planned individually.")
+    t = timeline("From first message to first leads", [("Day 0", "Free audit and growth plan on WhatsApp"), ("Day 2", "Website or landing page live (48-hour build)"), ("Day 3-5", "Tracking, Pixel/CAPI and Google tags set up"), ("Day 5-7", "First Meta and Google campaigns live"), ("Week 2+", "Weekly creative tests and budget shifts"), ("Monthly", "Report: leads, cost per lead, next steps")], "Typical timeline for a standard engagement once content and approvals are in.")
+    return f'''<section class="sec"><div class="wrap"><div class="head"><div>{tag("Our approach", "var(--blue)")}<h2>{head}</h2></div><p>{sub}</p></div><div class="vizgrid">{d}{s}{t}</div></div></section>'''
+
 # ------------------------------------------------------------------ pages
 def build_home(posts):
     s = SITE
@@ -401,11 +463,11 @@ def build_home(posts):
   <div class="wrap">
     <div>
       {tag("Digital marketing agency · Pan India", "var(--mint)")}
-      <h1>More <span class="hl hy">leads</span> &amp; <span class="hl hb">sales</span> for <span class="hl hc">every</span> business.</h1>
+      <h1>Websites &amp; performance marketing that bring <span class="hl">real customers</span>.</h1>
       <p class="lead">Kiran Growth School is a digital and performance marketing agency working with all types of businesses across India: Meta Ads, Google Ads, social media management, websites live in 48 hours, AI videos, AI avatar videos and AI automation. Specialists in solar and real estate, with a strong local team focus in Delhi NCR, Gurugram, Ghaziabad, Bhopal, Rewa and Satna.</p>
       <div class="ctas">
         {wa_btn("Hi, I'd like a free growth plan for my business.", "Get a free growth plan")}
-        <a class="btn b-sun" href="/services/">See all services</a>
+        <a class="btn b-white" href="/services/">See all services</a>
       </div>
       <div class="mini">
         <div><i style="background:var(--sun)">{I["pin"]}</i><div><b>Pan India</b><br><span>All businesses</span></div></div>
@@ -413,14 +475,7 @@ def build_home(posts):
         <div><i style="background:var(--pink)">{I["sun"]}</i><div><b>Solar & RE</b><br><span>Specialists</span></div></div>
       </div>
     </div>
-    <div class="photo" id="photo">
-      <div class="stage">
-        <div class="pframe"><img src="/assets/img/sitanshu-hero.webp" alt="Sitanshu Tripathi, founder of Kiran Growth School performance marketing agency" width="900" height="878" fetchpriority="high"></div>
-        <div class="sticker st1"><small>Founder</small><b>{s["founder"]}</b></div>
-        <div class="sticker st2"><small>All enquiries on</small><b>WhatsApp</b></div>
-        <div class="sticker st3"><b>Ads · Social · Web · AI</b></div>
-      </div>
-    </div>
+    <div>{lead_form("card", "Get your free growth plan", "Website, ads, video or automation: tell us what you need. We reply on WhatsApp.")}</div>
   </div>
 </section>
 
@@ -451,8 +506,11 @@ def build_home(posts):
   </div>
 </section>
 
+{viz_section()}
+{fband()}
+
 <section class="nums" aria-label="How we work"><div class="wrap">
-  <div class="n"><b>7</b><span>Core services under one roof</span></div>
+  <div class="n"><b>8</b><span>Core services under one roof</span></div>
   <div class="n"><b>48 hrs</b><span>To launch your business website</span></div>
   <div class="n"><b>Pan India</b><span>Clients across India, local focus in NCR & MP</span></div>
   <div class="n"><b>Weekly</b><span>Reports on leads and cost per lead</span></div>
@@ -506,7 +564,7 @@ def build_home(posts):
 
 {faq_block(HOME_FAQ)}
 {cta_band('Your next customer is searching <span class="hl hy">right now</span>', "Tell us what you sell and where. We'll show you how to reach the buyers already looking for it.", "Hi Kiran Growth School, I'd like to get started.")}
-{contact_block("Complete performance marketing")}'''
+{contact_block("Complete digital marketing")}'''
     page("/", "Digital & Performance Marketing Agency in India | Delhi NCR | Kiran Growth School",
          "Pan-India digital and performance marketing agency for every business: Meta Ads, Google Ads, social media management, websites live in 48 hours, AI videos and automation. Solar & real estate specialists in Delhi NCR. WhatsApp +91 93998 51765.",
          body, active="/", schema=[faq_schema(HOME_FAQ)])
@@ -517,7 +575,9 @@ def build_services():
 <p class="lead">Eight services, one goal: more qualified enquiries for your business, at a cost per lead that makes sense. Pick one, or let us run the full system.</p>
 <div class="ctas">{wa_btn("Hi, I want to discuss your services.", "Discuss on WhatsApp")}</div></div></section>
 <section class="sec"><div class="wrap">{svc_cards()}</div></section>
+{viz_section()}
 {steps_block()}
+{fband()}
 {contact_block()}'''
     page("/services/", "Performance Marketing Services | Meta Ads, Google Ads, Websites, AI Video & Automation",
          "Meta Ads, Google Ads, website design, AI video production, AI avatar videos and AI automation for solar and real estate businesses in Delhi NCR and Madhya Pradesh.",
@@ -538,7 +598,7 @@ def build_services():
 <section class="sec" style="padding-top:0"><div class="wrap"><div class="head"><div>{tag("Cities", "var(--pink)")}<h2>{E(s["name"])} by city</h2></div></div>{city_links()}</div></section>
 {faq_block(s["faq"])}
 <section class="sec" style="padding-top:0"><div class="wrap"><div class="head"><div>{tag("Other services", "var(--mint)")}<h2>Works best together</h2></div></div><div class="grid3">{others}</div></div></section>
-{contact_block({"meta-ads": "Meta Ads", "google-ads": "Google Ads", "website-development": "Website design", "video-editing": "Video editing", "ai-video-production": "AI videos", "ai-avatar-videos": "AI avatar videos", "social-media-management": "Social media management", "ai-automation": "AI automation"}[s["slug"]])}'''
+{contact_block({"meta-ads": "Meta Ads", "google-ads": "Google Ads", "website-development": "Website design", "video-editing": "Video editing", "ai-video-production": "AI videos / AI avatar", "ai-avatar-videos": "AI videos / AI avatar", "social-media-management": "Social media management", "ai-automation": "AI automation"}[s["slug"]])}'''
         svc_ld = {"@type": "Service", "name": s["name"], "serviceType": s["name"], "description": s["desc"], "provider": {"@id": ORG_ID},
                   "areaServed": [c["name"] for c in CITIES], "audience": {"@type": "BusinessAudience", "audienceType": "Solar companies, real estate builders, brokers and channel partners"}}
         page(path, s["title"] + " | Kiran Growth School", s["desc"], body, active="/services/", schema=[svc_ld, faq_schema(s["faq"]), crumbs_schema(cr)])
@@ -579,8 +639,10 @@ def build_industries(posts):
 <section class="sec" style="padding-top:0"><div class="wrap"><div class="head"><div>{tag("The system", "var(--blue)")}<h2>Eight services, <span class="hl hb">one system</span></h2></div></div>{svc_cards()}</div></section>
 <section class="sec" id="cities" style="padding-top:0"><div class="wrap"><div class="head"><div>{tag("City playbooks", "var(--pink)")}<h2>{E(ind["name"])} marketing by city</h2></div></div><div class="grid3">{city_cards}</div></div></section>
 <section class="sec" style="padding-top:0"><div class="wrap"><div class="head"><div>{tag("Read", "var(--mint)")}<h2>{E(ind["name"])} marketing guides</h2></div></div><div class="grid3">{"".join(post_card(p) for p in rel)}</div></div></section>
+{viz_section(which="solar" if key == "solar" else "re")}
+{fband(f"More {ind['name'].lower()} leads, starting this month", default="Solar marketing" if key == "solar" else "Real estate marketing")}
 {faq_block(faq)}
-{contact_block("Complete performance marketing")}'''
+{contact_block("Complete digital marketing")}'''
         sld = {"@type": "Service", "name": f"{ind['name']} marketing", "serviceType": f"{ind['name']} lead generation and performance marketing", "description": ind["desc"], "provider": {"@id": ORG_ID}, "areaServed": [c["name"] for c in CITIES]}
         page(path, ind["title"] + " | Kiran Growth School", ind["desc"], body, active="/industries/", schema=[sld, faq_schema(faq), crumbs_schema(cr)])
 
@@ -629,7 +691,7 @@ def build_locations(posts):
 <section class="sec" style="padding-top:0"><div class="wrap"><div class="head"><div>{tag("Read", "var(--mint)")}<h2>Guides for {E(n)} businesses</h2></div></div><div class="grid3">{"".join(post_card(p) for p in rel)}</div></div></section>
 {faq_block(faq)}
 <section class="sec" style="padding-top:0"><div class="wrap"><div class="head"><div><h2 style="font-size:1.6rem">Other cities</h2></div></div>{city_links()}</div></section>
-{contact_block("Complete performance marketing")}'''
+{contact_block("Complete digital marketing")}'''
         ld = {"@type": "Service", "name": f"Digital and performance marketing agency in {n}", "serviceType": "Performance marketing for solar and real estate", "provider": {"@id": ORG_ID},
               "areaServed": {"@type": "City" if c["slug"] != "delhi-ncr" else "Place", "name": n}, "description": f"Meta Ads, Google Ads, website design, AI videos and AI automation for solar companies and real estate businesses in {n}."}
         page(path, f"Digital Marketing Agency & Website Designer in {n} | Kiran Growth School",
@@ -855,6 +917,7 @@ def build_city_topics(posts):
 <section class="sec" style="padding-top:0"><div class="wrap"><div class="head"><div>{tag("48-hour process", "var(--coral)")}<h2>From WhatsApp message to live website</h2></div></div><div class="grid2">{scards}</div></div></section>
 <section class="sec" style="padding-top:0"><div class="wrap"><div class="head"><div>{tag("Local SEO", "var(--pink)")}<h2>Built to rank in {E(n)} and nearby areas</h2></div><p>We add local pages, Google Maps, LocalBusiness schema and locality keywords so customers searching "website designer near me" or "[your service] in {E(n)}" can find you, including in:</p></div><div class="kw">{micro}</div>
 <div style="margin-top:28px;max-width:560px">{nap_card(" in " + n, sl)}</div></div></section>
+{fband(f"Get your {n} business website live in 48 hours", "Share your business details and we'll send a free website plan and quote on WhatsApp.", default="Website design")}
 {faq_block(faq)}
 <section class="sec" style="padding-top:0"><div class="wrap"><div class="head"><div><h2 style="font-size:1.6rem">Website designer in other cities</h2></div></div><div class="citylinks">{others}</div></div></section>
 {contact_block("Website design")}'''
@@ -900,9 +963,11 @@ def build_city_topics(posts):
 <div class="head" style="margin-top:44px;margin-bottom:20px"><div><h3>Areas we target in and around {E(n)}</h3></div></div><div class="kw">{micro}</div>
 <div style="margin-top:28px;max-width:560px">{nap_card(" for solar marketing in " + n, sl)}</div></div></section>
 <section class="sec" style="padding-top:0"><div class="wrap"><div class="head"><div>{tag("Read", "var(--mint)")}<h2>Solar marketing guides</h2></div></div><div class="grid3">{"".join(post_card(q) for q in rel)}</div></div></section>
+{viz_section(which="solar")}
+{fband(f"More solar leads in {n}", "Get a free solar marketing plan for {n}: channels, budget and follow-up, on WhatsApp.".replace("{n}", n), default="Solar marketing")}
 {faq_block(faq)}
 <section class="sec" style="padding-top:0"><div class="wrap"><div class="head"><div><h2 style="font-size:1.6rem">Solar marketing in other cities</h2></div></div><div class="citylinks">{sothers}</div></div></section>
-{contact_block("Complete performance marketing")}'''
+{contact_block("Complete digital marketing")}'''
         ld = {"@type": "Service", "name": f"Solar marketing agency in {n}", "serviceType": "Solar lead generation and digital marketing", "description": f"Rooftop solar and PM Surya Ghar lead generation for solar installers and EPC companies in {n}.",
               "provider": {"@id": ORG_ID}, "areaServed": area, "url": U + path, "audience": {"@type": "BusinessAudience", "audienceType": "Solar installers and EPC companies"}}
         page(path, f"Solar Marketing Agency in {n} | Solar Leads & PM Surya Ghar Ads",
@@ -932,8 +997,9 @@ def build_niches(posts):
 <section class="sec" style="padding-top:0"><div class="wrap"><div class="head"><div>{tag("Cities", "var(--pink)")}<h2>{E(x["name"])} marketing by city</h2></div></div><div class="citylinks">{cities}</div>
 <div style="margin-top:28px;max-width:560px">{nap_card(" for " + x["name"].lower() + " marketing")}</div></div></section>
 <section class="sec" style="padding-top:0"><div class="wrap"><div class="head"><div>{tag("Read", "var(--mint)")}<h2>Marketing guides</h2></div></div><div class="grid3">{"".join(post_card(p) for p in rel)}</div></div></section>
+{fband(f"Grow your {x['name'].lower()} business", default=x["name"] + " marketing" if x["key"] != "bakery" else "Sweets & bakery marketing")}
 {faq_block(x["faq"])}
-{contact_block("Complete performance marketing")}'''
+{contact_block("Complete digital marketing")}'''
         ld = {"@type": "Service", "name": f"{x['name']} marketing", "serviceType": f"{x['name']} marketing and lead generation", "description": x["desc"], "provider": {"@id": ORG_ID},
               "areaServed": [c["name"] for c in CITIES] + ["India"], "url": U + path}
         page(path, x["title"] + " | Kiran Growth School", x["desc"], body, active="/industries/", schema=[ld, faq_schema(x["faq"]), crumbs_schema(cr)])
