@@ -6,7 +6,7 @@ SITE = {
     "phone": "+91 93998 51765",
     "phone_e164": "+919399851765",
     "wa": "919399851765",
-    "email": "founder@kirangrowthschool.com",
+    "email": "sitanshu2811@gmail.com",
     "founder": "Sitanshu Tripathi",
     "linkedin": "https://www.linkedin.com/in/sitanshu-tripathii/",
     "hours": "Mon to Sat · 10 AM to 7 PM",

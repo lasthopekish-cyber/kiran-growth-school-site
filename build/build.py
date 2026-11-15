@@ -761,7 +761,7 @@ def build_contact():
 <section class="sec" style="padding-top:0"><div class="wrap"><div class="head"><div>{tag("Service areas", "var(--pink)")}<h2>We work with businesses in</h2></div></div>{city_links()}</div></section>'''
     ld = {"@type": "ContactPage", "url": U + "/contact/", "name": "Contact Kiran Growth School", "about": {"@id": ORG_ID}}
     page("/contact/", "Contact Kiran Growth School | WhatsApp +91 93998 51765 | Marketing Agency",
-         "Contact Kiran Growth School: offices in Ghaziabad (Mohan Nagar) and Rewa. WhatsApp or call +91 93998 51765, email founder@kirangrowthschool.com. Mon to Sat, 10 AM to 7 PM.",
+         "Contact Kiran Growth School: offices in Ghaziabad (Mohan Nagar) and Rewa. WhatsApp or call +91 93998 51765, email sitanshu2811@gmail.com. Mon to Sat, 10 AM to 7 PM.",
          body, schema=[ld, crumbs_schema(cr)])
 
 def build_industries_index():
