@@ -271,7 +271,7 @@ def page(path, title, desc, body, active=None, schema=None, og_type="website", o
 PAGES = []
 
 BRAND = " | Kiran Growth School"
-def seo_title(t, limit=62):
+def seo_title(t, limit=68):
     """Keep titles inside Google's ~60 char display: drop brand, then trailing ' | ' parts."""
     if len(t) <= limit:
         return t
@@ -280,7 +280,8 @@ def seo_title(t, limit=62):
     parts = t.split(" | ")
     while len(" | ".join(parts)) > limit and len(parts) > 1:
         parts.pop()
-    return " | ".join(parts)
+    out = " | ".join(parts)
+    return out + BRAND if len(out) + len(BRAND) <= limit and "Kiran Growth School" not in out else out
 
 def seo_desc(d, limit=160):
     if len(d) <= limit:
