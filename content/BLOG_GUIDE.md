@@ -6,7 +6,7 @@ Every post is one Markdown file in `content/blog/`, named `<slug>.md`. The slug 
 
 ```
 ---
-title: Clear, specific title with the main keyword (55-70 characters ideal)
+title: Clear, specific title with the main keyword first (50-60 characters, never over 62)
 description: One or two sentences, 140-160 characters, with the keyword and city where natural.
 date: 2026-11-12
 order: 1

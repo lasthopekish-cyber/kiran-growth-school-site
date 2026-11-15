@@ -596,7 +596,7 @@ def build_home(posts):
 {faq_block(HOME_FAQ)}
 {cta_band('Your next customer is searching <span class="hl hy">right now</span>', "Tell us what you sell and where. We'll show you how to reach the buyers already looking for it.", "Hi Kiran Growth School, I'd like to get started.")}
 {contact_block("Complete digital marketing")}'''
-    page("/", "Kiran Growth School | Website Design & Digital Marketing Agency",
+    page("/", "Kiran Growth School: Website Design & Digital Marketing Agency",
          "Website design in 48 hours, solar marketing, Meta Ads, Google Ads and video for businesses in Delhi NCR, Noida, Ghaziabad, Bhopal and Rewa. Call +91 93998 51765.",
          body, active="/", schema=[faq_schema(HOME_FAQ)])
 
