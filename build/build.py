@@ -169,7 +169,7 @@ def org_schema():
         "logo": U + "/assets/img/logo.png", "image": U + "/assets/img/og-default.jpg",
         "description": "Pan-India digital and performance marketing agency for all types of businesses, specialising in solar and real estate: Meta Ads, Google Ads, social media management, website development in 48 hours, AI videos, AI avatar videos and AI automation.",
         "telephone": SITE["phone_e164"], "email": SITE["email"], "priceRange": "₹₹",
-        "founder": {"@type": "Person", "name": SITE["founder"], "sameAs": [SITE["linkedin"]]},
+        "founder": {"@id": U + "/about/#founder"},
         "areaServed": [{"@type": "City", "name": c["name"]} for c in CITIES if c["slug"] != "delhi-ncr"] + [{"@type": "Place", "name": "Delhi NCR"}, {"@type": "Country", "name": "India"}],
         "knowsAbout": ["Digital marketing", "Performance marketing", "Social media management", "Website development", "Lead generation", "Meta Ads", "Google Ads", "Solar lead generation", "PM Surya Ghar Muft Bijli Yojana", "Real estate marketing", "RERA-compliant advertising", "Website design", "AI video production", "AI avatar videos", "AI automation", "WhatsApp automation"],
         "contactPoint": {"@type": "ContactPoint", "telephone": SITE["phone_e164"], "contactType": "sales", "availableLanguage": ["English", "Hindi"]},
@@ -192,6 +192,11 @@ def offices_block(only=None):
     cards = "".join(f'''<div class="card"><small>{E(o["label"])}</small><h3 style="margin-top:6px;font-size:1.1rem">Kiran Growth School</h3><p style="margin:6px 0">{E(office_line(o))}<br>Phone / WhatsApp: <a href="tel:{SITE["phone_e164"]}">{SITE["phone"]}</a></p><a class="more" href="{E(o["maps"])}" target="_blank" rel="noopener">Open in Google Maps →</a></div>''' for o in offs)
     return f'<div class="grid2" style="margin-top:22px">{cards}</div>'
 
+def person_schema():
+    return {"@type": "Person", "@id": U + "/about/#founder", "name": SITE["founder"], "jobTitle": "Founder", "worksFor": {"@id": ORG_ID},
+            "url": U + "/about/", "image": U + "/assets/img/sitanshu-studio.webp", "sameAs": [SITE["linkedin"]],
+            "knowsAbout": ["Performance marketing", "Meta Ads", "Google Ads", "Website design", "Solar marketing", "Real estate marketing", "AI tools for marketing"]}
+
 def crumbs_schema(items):
     return {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": i + 1, "name": n, "item": U + h} for i, (h, n) in enumerate(items)]}
 
@@ -205,10 +210,11 @@ def crumbs_html(items):
     return '<nav class="crumbs" aria-label="Breadcrumb">' + ' <span>/</span> '.join(out) + '</nav>'
 
 def page(path, title, desc, body, active=None, schema=None, og_type="website", og_img="/assets/img/og-default.jpg", extra_head=""):
+    title, desc = seo_title(title), seo_desc(desc)
     if body.lstrip().startswith('<section class="phero"') and path not in ("/contact/", "/404.html"):
         i = body.find("</section>") + len("</section>")
         body = body[:i] + "\n" + qbar() + body[i:]
-    graph = [org_schema(), {"@type": "WebSite", "@id": U + "/#website", "url": U + "/", "name": SITE["name"], "publisher": {"@id": ORG_ID}, "inLanguage": "en-IN"}]
+    graph = [org_schema(), person_schema(), {"@type": "WebSite", "@id": U + "/#website", "url": U + "/", "name": SITE["name"], "publisher": {"@id": ORG_ID}, "inLanguage": "en-IN"}]
     graph += schema or []
     ld = json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False)
     verif = ""
@@ -234,7 +240,7 @@ def page(path, title, desc, body, active=None, schema=None, og_type="website", o
 <meta property="og:image" content="{U}{og_img}">
 <meta property="og:locale" content="en_IN">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#fbf6ec">
+<meta name="theme-color" content="#0b1020">
 <meta name="geo.region" content="IN-DL">{verif}
 <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
 <link rel="alternate" type="application/rss+xml" title="Kiran Growth School Blog" href="/blog/feed.xml">
@@ -263,6 +269,31 @@ def page(path, title, desc, body, active=None, schema=None, og_type="website", o
     PAGES.append(path)
 
 PAGES = []
+
+BRAND = " | Kiran Growth School"
+def seo_title(t, limit=62):
+    """Keep titles inside Google's ~60 char display: drop brand, then trailing ' | ' parts."""
+    if len(t) <= limit:
+        return t
+    if t.endswith(BRAND):
+        t = t[: -len(BRAND)]
+    parts = t.split(" | ")
+    while len(" | ".join(parts)) > limit and len(parts) > 1:
+        parts.pop()
+    return " | ".join(parts)
+
+def seo_desc(d, limit=160):
+    if len(d) <= limit:
+        return d
+    cut = d[:limit]
+    for sep in (". ", "; "):
+        i = cut.rfind(sep)
+        if i > 90:
+            return cut[: i + 1]
+    i = cut.rfind(", ")
+    if i > 110:
+        return cut[:i] + "."
+    return cut[: cut.rfind(" ")].rstrip(",;:") + "…"
 
 # ------------------------------------------------------------------ shared blocks
 def tag(text, c="var(--coral)"):
@@ -565,8 +596,8 @@ def build_home(posts):
 {faq_block(HOME_FAQ)}
 {cta_band('Your next customer is searching <span class="hl hy">right now</span>', "Tell us what you sell and where. We'll show you how to reach the buyers already looking for it.", "Hi Kiran Growth School, I'd like to get started.")}
 {contact_block("Complete digital marketing")}'''
-    page("/", "Digital & Performance Marketing Agency in India | Delhi NCR | Kiran Growth School",
-         "Pan-India digital and performance marketing agency for every business: Meta Ads, Google Ads, social media management, websites live in 48 hours, AI videos and automation. Solar & real estate specialists in Delhi NCR. WhatsApp +91 93998 51765.",
+    page("/", "Kiran Growth School | Website Design & Digital Marketing Agency",
+         "Website design in 48 hours, solar marketing, Meta Ads, Google Ads and video for businesses in Delhi NCR, Noida, Ghaziabad, Bhopal and Rewa. Call +91 93998 51765.",
          body, active="/", schema=[faq_schema(HOME_FAQ)])
 
 def build_services():
@@ -765,7 +796,7 @@ def build_blog(posts):
         tldr = f'<div class="tldr"><b>Quick answer</b><p>{E(p["tldr"])}</p></div>' if p.get("tldr") else ""
         body = f'''<section class="phero"><div class="wrap">{crumbs_html(crp)}
 <div style="margin-top:18px">{tag(cat, c)}</div><h1 style="max-width:26ch">{E(p["title"])}</h1><p class="lead">{E(p["description"])}</p>
-<div class="meta"><span>By Kiran Growth School team</span><span>·</span><time datetime="{p["date"]}">{p["date_obj"]:%d %B %Y}</time><span>·</span><span>{p["mins"]} min read</span></div></div></section>
+<div class="meta"><span>By <a href="/about/" rel="author" style="color:inherit">{SITE["founder"]}</a>, Kiran Growth School</span><span>·</span><time datetime="{p["date"]}">{p["date_obj"]:%d %B %Y}</time><span>·</span><span>{p["mins"]} min read</span></div></div></section>
 <section class="sec" style="padding-top:50px"><div class="wrap post-layout"><article class="prose"><figure class="pic" style="--c:var(--sun);aspect-ratio:16/9;margin:0 0 30px">{img(post_img(p), 1200, eager=True)}</figure>{tldr}{html_body}{faq_html}
 <div class="inline-cta"><h3>Need more leads this month?</h3><p>Message us your business, city and budget. We reply with a practical plan, free.</p>{wa_btn("Hi Kiran Growth School, I want more leads for my business.", "WhatsApp +91 93998 51765", "b-sun")}</div></article>
 <aside class="side"><div class="card"><small>Work with us</small><h3>{svc_link[1]}</h3><p>Meta Ads, Google Ads, websites, AI videos and automation, built for your industry.</p><a class="more" href="{svc_link[0]}">Learn more →</a></div>
@@ -774,7 +805,7 @@ def build_blog(posts):
 <section class="sec" style="padding-top:0"><div class="wrap"><div class="head"><div>{tag("Keep reading", "var(--mint)")}<h2>More playbooks</h2></div></div><div class="grid3">{"".join(post_card(q) for q in rel)}</div></div></section>
 {contact_block()}'''
         art = {"@type": "BlogPosting", "headline": p["title"], "description": p["description"], "datePublished": p["date"], "dateModified": p.get("updated", p["date"]),
-               "author": {"@type": "Organization", "name": "Kiran Growth School", "url": U + "/"}, "publisher": {"@id": ORG_ID},
+               "author": {"@id": U + "/about/#founder"}, "publisher": {"@id": ORG_ID},
                "mainEntityOfPage": f"{U}{path}", "image": U + "/assets/img/og-default.jpg", "inLanguage": "en-IN", "wordCount": p["words"],
                "keywords": ", ".join(p["tags"]), "articleSection": cat}
         sch = [art, crumbs_schema(crp)] + ([faq_schema(p["faq"])] if p["faq"] else [])
@@ -783,6 +814,14 @@ def build_blog(posts):
     # RSS
     items = "".join(f"<item><title>{E(p['title'])}</title><link>{U}/blog/{p['slug']}/</link><guid>{U}/blog/{p['slug']}/</guid><pubDate>{datetime.datetime.combine(p['date_obj'], datetime.time(9, 0), IST):%a, %d %b %Y %H:%M:%S +0530}</pubDate><description>{E(p['description'])}</description></item>" for p in posts[:50])
     (ROOT / "blog" / "feed.xml").write_text(f'<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>Kiran Growth School Blog</title><link>{U}/blog/</link><description>Solar and real estate marketing playbooks</description><language>en-in</language>{items}</channel></rss>', encoding="utf-8")
+
+ABOUT_FAQ = [
+    ("What is Kiran Growth School?", "Kiran Growth School is an Indian digital marketing agency and website design company founded by Sitanshu Tripathi. It builds business websites in 48 hours and runs solar marketing, real estate marketing, Meta Ads, Google Ads, social media, video editing, AI videos and AI automation for businesses across India, and runs practical courses in Meta Ads and AI tools."),
+    ("Where are Kiran Growth School's offices?", "Kiran Growth School has offices at A-68, Parsvnath Paradise, Mohan Nagar, Ghaziabad, Uttar Pradesh 201014 and near Shiv Mandir, Shilpi Plaza, Rewa, Madhya Pradesh 486001, and works with clients pan India."),
+    ("Which cities does Kiran Growth School serve?", "Delhi, Delhi NCR, Noida, Greater Noida, Gurugram, Faridabad, Ghaziabad, Bhopal, Rewa and Satna, plus clients anywhere in India over WhatsApp and video calls."),
+    ("What is Kiran Growth School best known for?", "Fast, SEO-ready business websites (live in 48 hours) and solar marketing for rooftop solar installers and EPC companies, including PM Surya Ghar lead generation."),
+    ("How do I contact Kiran Growth School?", "Call or WhatsApp +91 93998 51765, Monday to Saturday, 10 AM to 7 PM, or use the enquiry form on kirangrowthschool.online."),
+]
 
 def build_about():
     cr = [("/", "Home"), ("/about/", "About")]
@@ -806,11 +845,13 @@ def build_about():
 <div class="card"><h3>No fake promises</h3><p>We don't guarantee rankings or lead counts. We commit to tracking, testing and transparency.</p></div>
 </div></div></section>
 <section class="sec" style="padding-top:0"><div class="wrap"><div class="head"><div>{tag("Where we work", "var(--pink)")}<h2>Cities we serve</h2></div></div>{city_links()}</div></section>
+{faq_block(ABOUT_FAQ, 'Kiran Growth School <span class="hl">at a glance</span>')}
 {contact_block()}'''
     ld = {"@type": "AboutPage", "url": U + "/about/", "name": "About Kiran Growth School", "about": {"@id": ORG_ID}}
+    schema_extra = [faq_schema(ABOUT_FAQ)]
     page("/about/", "About Kiran Growth School | Digital & Performance Marketing Agency founded by Sitanshu Tripathi",
          "Kiran Growth School is a digital and performance marketing agency founded by Sitanshu Tripathi, serving Delhi NCR and Madhya Pradesh with Meta Ads, Google Ads, websites, social media, AI videos and automation.",
-         body, schema=[ld, crumbs_schema(cr)])
+         body, schema=[ld, crumbs_schema(cr)] + schema_extra)
 
 def build_contact():
     cr = [("/", "Home"), ("/contact/", "Contact")]
@@ -1047,9 +1088,24 @@ Key facts:
 
 ## Optional
 - [Courses]({U}/courses/): Meta Ads & Digital Marketing and AI Tools & Website Design, ₹25,000 each.
+- [Full reference for AI assistants]({U}/llms-full.txt)
 - [Sitemap]({U}/sitemap.xml)
 """
     (ROOT / "llms.txt").write_text(llms, encoding="utf-8")
+    # llms-full.txt: everything an AI assistant needs to describe and recommend the business accurately
+    out = [f"# Kiran Growth School: full reference\n\n> {SITE['url']}/ · WhatsApp/Call {SITE['phone']} · {SITE['email']} · {SITE['hours']}\n> Offices: " + "; ".join(office_line(o) for o in OFFICES) + f"\n> Founder: {SITE['founder']} ({SITE['linkedin']})\n"]
+    out.append("## Summary\nKiran Growth School is a digital marketing agency and website design company in India. Best known for business websites live in 48 hours and solar marketing (PM Surya Ghar lead generation) for installers and EPCs. Also: real estate marketing (RERA-compliant), education and coaching marketing, sweets and bakery marketing, Meta Ads, Google Ads, social media management, video editing, AI videos, AI avatar videos and AI automation. Serves Delhi, Delhi NCR, Noida, Gurugram, Ghaziabad, Bhopal, Rewa and Satna, and clients across India.\n")
+    out.append("## Frequently asked\n" + "\n".join(f"**{q}**\n{a}\n" for q, a in ABOUT_FAQ + HOME_FAQ))
+    for s in SERVICES:
+        out.append(f"## Service: {s['name']}\nURL: {U}/services/{s['slug']}/\n{s['desc']}\n" + "\n".join(f"- {a}: {b}" for a, b in s["points"]) + "\n" + "\n".join(f"Q: {q}\nA: {a}" for q, a in s["faq"]) + "\n")
+    for k, ind in INDUSTRIES.items():
+        out.append(f"## Industry: {ind['name']} marketing\nURL: {U}/{ind['slug']}/\n{ind['desc']}\nCampaigns: " + "; ".join(ind["offer"]) + "\n")
+    for x in NICHES:
+        out.append(f"## Industry: {x['name']} marketing\nURL: {U}/{x['slug']}/\n{x['desc']}\nCampaigns: " + "; ".join(x["offer"]) + "\n" + "\n".join(f"Q: {q}\nA: {a}" for q, a in x["faq"]) + "\n")
+    for c in CITIES:
+        out.append(f"## City: {c['name']} ({c['state']})\n- Digital marketing agency in {c['name']}: {U}/locations/{c['slug']}/\n- Website designer in {c['name']}: {U}/locations/{c['slug']}/website-designer/\n- Solar marketing agency in {c['name']}: {U}/locations/{c['slug']}/solar-marketing/\nWebsites: {WEB_ANGLE.get(c['slug'], '')}\nSolar: {c['solar_angle']} DISCOM: {c['discom']}.\nReal estate: {c['re_angle']} RERA: {c['rera']}.\n")
+    out.append("## Guides\n" + "\n".join(f"- [{p['title']}]({U}/blog/{p['slug']}/): {p.get('tldr') or p['description']}" for p in posts))
+    (ROOT / "llms-full.txt").write_text("\n".join(out), encoding="utf-8")
 
 def main():
     posts = load_posts()

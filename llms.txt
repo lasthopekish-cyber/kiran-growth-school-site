@@ -71,4 +71,5 @@ Key facts:
 
 ## Optional
 - [Courses](https://kirangrowthschool.online/courses/): Meta Ads & Digital Marketing and AI Tools & Website Design, ₹25,000 each.
+- [Full reference for AI assistants](https://kirangrowthschool.online/llms-full.txt)
 - [Sitemap](https://kirangrowthschool.online/sitemap.xml)
