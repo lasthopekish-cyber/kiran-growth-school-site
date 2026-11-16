@@ -14,7 +14,7 @@ Target keyword is after the `|`.
 ## Slot A: Website design
 
 - [x] Website Design Cost in Delhi NCR (2026): What Businesses Actually Pay and Why | website design cost Delhi NCR → /blog/website-design-cost-delhi-ncr/
-- [ ] How to Choose the Best Website Designer in Noida: 12 Questions to Ask Before You Pay | best website designer in Noida
+- [x] How to Choose the Best Website Designer in Noida: 12 Questions to Ask Before You Pay | best website designer in Noida → /blog/best-website-designer-noida-questions/
 - [ ] Website Development in Bhopal: A Practical Guide for Local Businesses Going Online | website development company Bhopal
 - [ ] Why Every Business in Rewa Needs a Website (and What It Should Include) | website designer in Rewa
 - [ ] Website Designer in Satna: How Traders, Schools and Shops Can Get Found on Google | website designer in Satna
@@ -32,7 +32,7 @@ Target keyword is after the `|`.
 ## Slot B: Solar marketing
 
 - [x] Solar Marketing in Noida: How Installers Can Win RWA and Factory Rooftop Projects | solar marketing agency Noida → /blog/solar-marketing-agency-noida-rwa-factory-rooftop/
-- [ ] How Solar Installers in Bhopal Can Get PM Surya Ghar Leads (MPMKVVCL Net Metering Explained) | solar leads Bhopal
+- [x] How Solar Installers in Bhopal Can Get PM Surya Ghar Leads (MPMKVVCL Net Metering Explained) | solar leads Bhopal → /blog/solar-leads-bhopal-pm-surya-ghar-net-metering/
 - [ ] Solar Marketing in Rewa: Selling Rooftop Solar and PM-KUSUM Pumps to Homes and Farmers | solar company Rewa
 - [ ] Solar Marketing in Satna: Commercial and Industrial Rooftop Leads from the Cement Belt | solar EPC Satna
 - [ ] Solar Leads in Delhi: Marketing Rooftop Solar Across BSES, Tata Power-DDL and NDMC Areas | solar company in Delhi
@@ -50,7 +50,7 @@ Target keyword is after the `|`.
 ## Slot C: Rotating (real estate, education, bakery, video, ads)
 
 - [x] Education Marketing in Bhopal: How Coaching Institutes Can Fill Batches with Meta and Google Ads | coaching institute marketing Bhopal → /blog/coaching-institute-marketing-bhopal/
-- [ ] Sweets Shop Marketing in Delhi: Diwali, Rakhi and Wedding Season Order Campaigns | sweet shop marketing Delhi
+- [x] Sweets Shop Marketing in Delhi: Diwali, Rakhi and Wedding Season Order Campaigns | sweet shop marketing Delhi → /blog/sweet-shop-marketing-delhi-festive-orders/
 - [ ] Video Editing for Business Reels: What a Good Edit Includes (Hooks, Captions, Clean Audio) | video editing services Delhi NCR
 - [ ] Real Estate Marketing in Noida and Greater Noida West: UP RERA-Compliant Ad Playbook | real estate marketing Noida
 - [ ] AI Video Making for Small Businesses: Costs, Tools and When It Beats a Shoot | AI video making services
