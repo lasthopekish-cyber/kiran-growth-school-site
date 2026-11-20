@@ -17,7 +17,7 @@ Target keyword is after the `|`.
 - [x] How to Choose the Best Website Designer in Noida: 12 Questions to Ask Before You Pay | best website designer in Noida → /blog/best-website-designer-noida-questions/
 - [x] Website Development in Bhopal: A Practical Guide for Local Businesses Going Online | website development company Bhopal → /blog/website-development-company-bhopal/
 - [x] Why Every Business in Rewa Needs a Website (and What It Should Include) | website designer in Rewa → /blog/website-designer-in-rewa/
-- [ ] Website Designer in Satna: How Traders, Schools and Shops Can Get Found on Google | website designer in Satna
+- [x] Website Designer in Satna: How Traders, Schools and Shops Can Get Found on Google | website designer in Satna → /blog/website-designer-in-satna/
 - [ ] Website Design for Businesses in Ghaziabad: Local SEO Checklist for Raj Nagar Extension, Indirapuram and Vasundhara | website designer Ghaziabad
 - [ ] Website Designer in Delhi: Mobile-First Websites for Shops, Clinics and Coaching Centres | website designer in Delhi
 - [ ] Website in 48 Hours: What Is Realistic, What Isn't, and How to Prepare Your Content | website in 48 hours
@@ -35,7 +35,7 @@ Target keyword is after the `|`.
 - [x] How Solar Installers in Bhopal Can Get PM Surya Ghar Leads (MPMKVVCL Net Metering Explained) | solar leads Bhopal → /blog/solar-leads-bhopal-pm-surya-ghar-net-metering/
 - [x] Solar Marketing in Rewa: Selling Rooftop Solar and PM-KUSUM Pumps to Homes and Farmers | solar company Rewa → /blog/solar-company-rewa-rooftop-pm-kusum-marketing/
 - [x] Solar Marketing in Satna: Commercial and Industrial Rooftop Leads from the Cement Belt | solar EPC Satna → /blog/solar-epc-satna-commercial-industrial-rooftop/
-- [ ] Solar Leads in Delhi: Marketing Rooftop Solar Across BSES, Tata Power-DDL and NDMC Areas | solar company in Delhi
+- [x] Solar Leads in Delhi: Marketing Rooftop Solar Across BSES, Tata Power-DDL and NDMC Areas | solar company in Delhi → /blog/solar-company-in-delhi-leads-bses-tata-power-ndmc/
 - [ ] Google Business Profile for Solar Installers: How to Rank in the Maps Pack in Your City | solar installer near me
 - [ ] Solar Installer Marketing in Gurugram: Villas, Societies and DHBVN Net Metering | solar marketing Gurugram
 - [ ] Solar Ads in Hindi vs English: What Converts Better in Delhi NCR and MP | solar ads Hindi
@@ -53,7 +53,7 @@ Target keyword is after the `|`.
 - [x] Sweets Shop Marketing in Delhi: Diwali, Rakhi and Wedding Season Order Campaigns | sweet shop marketing Delhi → /blog/sweet-shop-marketing-delhi-festive-orders/
 - [x] Video Editing for Business Reels: What a Good Edit Includes (Hooks, Captions, Clean Audio) | video editing services Delhi NCR → /blog/video-editing-services-delhi-ncr-business-reels/
 - [x] Real Estate Marketing in Noida and Greater Noida West: UP RERA-Compliant Ad Playbook | real estate marketing Noida → /blog/real-estate-marketing-noida-up-rera/
-- [ ] AI Video Making for Small Businesses: Costs, Tools and When It Beats a Shoot | AI video making services
+- [x] AI Video Making for Small Businesses: Costs, Tools and When It Beats a Shoot | AI video making services → /blog/ai-video-making-services-small-business/
 - [ ] Bakery Marketing in Noida and Ghaziabad: Instagram Reels and Google Maps for Cake Shops | bakery marketing Noida
 - [ ] School Admission Marketing in Rewa and Satna: Parent-Focused Ads That Work | school admission marketing Rewa
 - [ ] Meta Ads Agency in Bhopal: How Local Businesses Can Start with a Small Budget | Meta ads agency Bhopal
